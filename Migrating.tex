@@ -13,7 +13,7 @@ We propose an alternative migration path where vNFs collaborate with modular gat
 Figure~\ref{fig:migration} presents a Modular HG with \textit{"Surrogate vNF"} (SvNF) deployed on the device.
 A SvNF is an OSGi bundle that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF.
 
-SvNF modules [N6][n7]can be aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
+SvNF modules can be aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
 For example, if the gateway cannot find any suitable vNF in a predefined SP point of presence (POP) list, it will fall back on legacy mode and keep using the native functionality instead of the virtualized one.
 
 The key role played by the couple SvNF+vNF in the migration path is that the vNF part is used on both the OSGi modular gateway scenario and on the L2 bridge scenario.
@@ -22,7 +22,10 @@ This approach helps the SP stabilising its vNF before gradually migrating all it
 \subsection{Concept and feasibility}
 To demonstrate the feasibility of a modular and NFV-ready HG, we realized a proof of concept (POC).
 In order for this POC to be highly relevant, we had to consider the best possible Network Functions to be virtualised.
-We could have focused on simple functions such as DHCP or NAT but since they are not difficult tasks to be processed, the added-value of virtualizing them appears limited. We thus decided to highlight the advantages of our proposal by deploying a new type of SvNF+vNF related to video distribution that would leverage the End-User's Quality of Experience related to video consumption and enhance network performances at the same time. Such a function can be introduced into a modular OSGi HG and its execution would definitely be efficient as a vNF, due to the heavy video processing tasks it involves. It is expected that IP video traffic will reach almost 80% of all consumer Internet traffic in 2018 [CISCO forecast white paper: http://www.cisco.com/c/en/us/solutions/collateral/service-provider/ip-ngn-ip-next-generation-network/white_paper_c11-481360.html], therefore it seems important to focus on how new solutions, such as NFV, could not only cope with this but especially enhance the delivery of such data.
+We could have focused on simple functions such as DHCP or NAT but since they are not difficult tasks to be processed, the added-value of virtualizing them appears limited.
+We thus decided to highlight the advantages of our proposal by deploying a new type of SvNF+vNF related to video distribution that would leverage the End-User's Quality of Experience related to video consumption and enhance network performances at the same time.
+Such a function can be introduced into a modular OSGi HG and its execution would definitely be efficient as a vNF, due to the heavy video processing tasks it involves.
+It is expected that IP video traffic will reach almost 80\% of all consumer Internet traffic in 2018 [CISCO forecast white paper: http://www.cisco.com/c/en/us/solutions/collateral/service-provider/ip-ngn-ip-next-generation-network/white_paper_c11-481360.html], therefore it seems important to focus on how new solutions, such as NFV, could not only cope with this but especially enhance the delivery of such data.
 
 \begin{figure*}
 	
@@ -86,14 +89,14 @@ This is a great way for the CP to generate extra revenue from its network.
 
 \subsubsection*{Scenario 3: Cache miss scenario}
 
-Finally, the last scenario is the one where the content is eligible for caching and transcoding but no cached version is yet available to the vHG from where the request has been made[N15][n16].
+Finally, the last scenario is the one where the content is eligible for caching and transcoding but no cached version is yet available to the vHG from where the request has been made.
 In this case the cache is missed and the content is retrieved from the CP.
 
 If the content only resides on the CP distribution network, user request is left untouched and media is consumed from there.
 However, under the hood, SvNF has analysed both request and response and has checked if media was eligible for caching and transcoding.
 The decision is made taking into account several properties on the HTTP resources like server domain, file type, file size and any relevant HTTP headers.
 When an eligible content is found, the SvNF informs the Caching and Transcoding Orchestrator by sending a caching request.
-Caching and Transcoding Orchestrator takes the decision to perform caching and transcoding on the content based on several criteria ranging from Context and User Intelligence (which has been proven in [23] to improve the performance of content delivery), to business negotiation between Content Provider and service Provider.
+Caching and Transcoding Orchestrator takes the decision to perform caching and transcoding on the content based on several criteria ranging from Context and User Intelligence (which has been proven in \cite{wang_cpcdn:_2015} to improve the performance of content delivery), to business negotiation between Content Provider and service Provider.
 
 If the Caching and Transcoding Orchestrator decides to process the content, it informs the Caching and Transcoding vNF which in turn is in charge of downloading the content from the content provider and processing the content.
 Once processed, the Caching and Transcoding Orchestrator provision streamer vNF in regional POPs according to the demand.
@@ -108,7 +111,7 @@ This operation should be carried out with the help of the underlying NFV platfor
 The NFV approach allows us to process data directly in the network.
 For our use case, it means that we can apply arbitrary modification to a video with a view to optimize the delivery with respect to a specific technical or business objective.
 For example, targeted ads can be added to the video by the SP with a view to increase profit, QOE can be increased by transcoding the content into a specific format which has this property.
-The fact that we are able to transform the content directly into the network[N19] is a big advantage in term of flexibility and convenience of administration for CP and SP.
+The fact that we are able to transform the content directly into the network is a big advantage in term of flexibility and convenience of administration for CP and SP.
 
 One other striking features of NFV is its ability to dynamically provision network functions according to simple business requirements expressed as Service Layer Agreements (SLA).
 To fine-tune orchestration policy of the system, SP could set a target of 10Mps in the 7pm-10pm time slot for its user toward a specific VOD website.
