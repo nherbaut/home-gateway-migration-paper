@@ -5,17 +5,17 @@
 % *** GRAPHICS RELATED PACKAGES ***
 %
 \ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
+  \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
+  \graphicspath{{./fig/}}
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 \else
   % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
   % will default to the driver specified in the system graphics.cfg if no
   % driver is specified.
-  % \usepackage[dvips]{graphicx}
+  \usepackage[dvips]{graphicx}
   % declare the path(s) where your graphic files are
   % \graphicspath{{../eps/}}
   % and their extensions so you won't have to specify these with
@@ -257,9 +257,9 @@ Although NFV approach pretends bringing operational advantages in terms of CAPEX
 The paper highlights a migration path towards full Home Gateway virtualization and proves its concept through a real implementation and evaluation on a practical use case related to video streaming.
 \end{abstract}
 
-\begin{keywords}
+\begin{IEEEkeywords}
 Home Gateway, Network Function Virtualization, OSGI
-\end{keywords}
+\end{IEEEkeywords}
 
 
 

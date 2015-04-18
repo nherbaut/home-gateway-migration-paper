@@ -1,1 +1,89 @@
-background
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth,natwidth=769,natheight=369]{fig/vHGetsi.png}
+  \end{center}
+  \caption{ Virtualization of the home environement according to ETSI.
+    \label{fig:etsi-vision}
+  }
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth,natwidth=7838,natheight=4517]{fig/vhgtrends.png}
+  \end{center}
+  \caption{ Major trends for technical aspects of Home Gateway Virtualization
+    \label{fig:trends}
+  }
+\end{figure}
+
+
+Even if historically customers still think they are connected to the Internet using a simple modem, the truth is that broadband connection is delivered by a full-fledge HG, integrating the functions of a modem, network address translation (NAT) router, Ethernet switch, WiFi access point, DHCP server, firewall, among others.
+ 
+No standard technical specification has been defined for HG. However a set of Functional Requirements is maintained by the Broadband Forum in TR-124 \cite{broadband_forum_functional_2014}.
+The following section will present the most common architectures for HGs.
+A special interest will be shown for execution environments, which are meant to achieve modularity.
+
+\subsection{Architecture and execution environment for HG}
+  \subsubsection{Firmware based HG}
+HG's firmware is a custom proprietary embedded system software deployed by vendors into their devices.
+This solution is still widely used by vendors, but lacks the ability to act as a real execution environment.
+Even if SPs or EUs can alter its configuration, new services cannot easily be deployed on-the-fly.
+A complete system update by the SP is necessary to deploy new features.
+   
+\subsubsection{GNU/Linux HG}
+   
+GNU/Linux is also used as a platform of choice for Home Gateways \cite{royon_multiservice_2007}.
+The solution is considered stable, tested and allows reusing well-known applications for networking, among others.
+After Linksys (a router vendor who published its GNU/Linux based firmware designed for its WRT54G product line in 2003), a lot of efforts have been made to maintain and improve embedded GNU/Linux firmware distribution over a wide variety of platforms.
+
+A notable example is the OpenWrt\footnote{https://openwrt.org/} project which has been partly sponsored among others by Comcast, through the Open Home Gateway Forum.
+It has helped researchers to add new features to commodity routers by replacing the firmware with a real GNU/Linux OS along with a file system and a package management tool.
+In addition of being able to deploy new packaged programs, developers can also use OpenWrt to write their own applications and deploy them in production.
+
+
+Modularity can be achieved within the GNU/Linux platform.
+The large application catalog available, usually benefits from low memory consumption and low IO footprint.
+However, programs must be cross platform and Service Oriented Architecture is not natively supported.
+Due to this, alternative execution environments such as OSGi are promoted.
+   
+\subsubsection{HG with OSGI execution environment}
+   
+OSGi is a specification that describes a modular system and a service platform for Java.
+It was originally designed to enable the deployment of services over wide area networks to local networks and devices (\cite{marples_open_2001}).
+The main advantages of OSGI are platform and application independency, multiple services support and collaboration by letting services discovering each other and adapting their behaviour accordingly.
+
+The Home Gateway Initiative (HGI)\footnote{http://www.homegatewayinitiative.org} publishes Requirements \cite{_requirements_2011} \cite{_hg_2014} proposing an architecture for Modular HG.
+It explicitly indicates OSGi as the solution of choice to deploy additional modules in their HGI Open Platform 2.0.
+This deals with the modularity issues of the latter approaches.
+For HGI, the goal for OSGi is to allow the installation, update, removal, start and stop of new software component leaving the underlying firmware image untouched.
+
+\subsection{Home Gateway Virtualization}
+The idea of virtualizing Home Gateways is not new.
+Being a disruptive technological change, proposing new architecture is a challenging task.
+It involves a great understanding of SP access networks, architecture choices, legacy and limitations.
+The opportunity of virtualizing HG is often coupled with the adoption of new technology such as fibre, since it allows new network capabilities and by dropping legacy twisted pair physical layer.
+
+The study from Eurescom \cite{daniel_abgrall_virtual_????} starts by describing existing standards from the Broadband Forum and assuming deployment scenarios for a vHG.
+By replacing existing HG with a managed bridge, SP would replace the current HG with a simplified layer-2 device having the ability to manage VoIP and WiFi interfaces.
+In the study, Software Defined Network (SDN) is also proposed to tackle scalability issues arising from integrating a significant number of vHG instances on network equipments.
+By proposing a software architecture related to the HGI proposal to deploy network function in a modularized fashion, they suggest the principle of NFV architecture.
+It is also claimed that the current Broadband Forum standards allow support of vHG even if its architecture is not defined, leaving the way open to using NVF.
+
+In \cite{da_silva_home_2011} authors qualitatively compare several architectures for HG virtualization (which in this case is merely layer-2 based home and access network with Plug and Play capabilities), explaining that it could be achieved (among other proposals) by centralizing the virtual routing [network] function (specially NAT) in the broadband remote access server.
+This method requires significant changes in the SP access network.
+
+In \cite{cruz_architecture_2013} Cruz et al demonstrates a proposal built upon two reference frameworks from the Broadband forum (TR-101 and TR-156), which shows vHG being deployed in SP datacenter as embedded GNU/Linux virtual machines managed by the CWMP protocol to simplify management on the SP side.
+
+In \cite{_network_2013} ETSI build out its proposal for using vNF in virtualizing the home environment over Eurescom work, by setting the vHG as a virtualization target, as show in Figure~\ref{fig:etsi-vision}.
+Benefits for this architecture include both CAPEX and OPEX reduction as well as improved QoE through remote access and multi-screen support.
+The introduction of new services without dependencies on the CPE capabilities is also outlined.
+In this scenario, the full stack of the HG and STB functionalities are moved to the cloud, leaving only simple Level-2 bridges in the customer's premises.
+They mention that SP is likely to roll out virtualized services gradually based on available access technology and End User requirements, without specifying the technical way to integrate both worlds.
+The paper is trying to address this main issue.
+
+In \cite{lee_netserv:_2011} authors propose to revive Active Networking by designing a framework allowing SP or Content Providers (CP) to deploy new functionalities on the network in a secure and dynamic fashion.
+NetServ Controller exposes packets to OSGi bundles for packet processing.
+
+Figure~\ref{fig:trends} presents the most relevant trends for the next generation HG which were previously discussed.
+Building up on the latter approaches, this paper investigates an alternate, yet standard-based, migration path to a fully virtualized home environment, centred around a modular HG (using HGI open platform 2.0 with OSGi) cooperating with a carrier grade cloud computing architecture (NFV-ready and ETSI compliant).
+
