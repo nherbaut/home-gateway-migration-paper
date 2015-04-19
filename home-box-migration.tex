@@ -93,7 +93,8 @@
 
 % *** ALIGNMENT PACKAGES ***
 %
-%\usepackage{array}
+\usepackage{array}
+\usepackage{multirow}
 % Frank Mittelbach's and David Carlisle's array.sty patches and improves
 % the standard LaTeX2e array and tabular environments to provide better
 % appearance and additional user controls. As the default LaTeX2e table
@@ -268,19 +269,24 @@ Home Gateway, Network Function Virtualization, OSGI
 
 
 \section{Introduction}
+\label{sec:introduction}
 \input{Introduction.tex}
 
 
 \section{Background and related work}
+\label{sec:background}
 \input{Background.tex}
 
 \section{Migrating to a NVF-based home gateway}
+\label{sec:migrating}
 \input{Migrating.tex}
 
-\section{Implementation and results}
+\section{Results}
+\label{sec:results}
 \input{Implementation.tex}
 
 \section{Conclusion and future work}
+\label{sec:conclusion}
 \input{Conclusion.tex}
 
 \section*{Acknowledgments}

@@ -1,1 +1,75 @@
-implementation
+\begin{table*}
+	\centering
+	\begin{tabular}{|p{0.10\textwidth}|p{0.35\textwidth}||p{0.10\textwidth}|p{0.10\textwidth}|p{0.10\textwidth}|p{0.10\textwidth}|}
+		\hline
+		\multirow{2}{0.10\textwidth}{Settings} & \multirow{2}{0.35\textwidth}{Detail of the network topology and software involved}   & Video Download Throughput from NAS       & Video Download Throughput from Internet CDN      & Web Browsing Throughput from NAS & Web Browsing Throughput from Internet CDN \\ \cline{3-6}
+		 & & \multicolumn{2}{m{0.20\textwidth}|}{5 threads continuously downloading a 20 Mb video file. 1000 times} & \multicolumn{2}{m{0.20\textwidth}|}{5 threads continuously downloading 172 files of 16kb. 1000 times}\\\hline
+		Direct Connection & Test machine connected directly to Internet & 191.5 ipm & tbd & 208.2 ipm & 58.5 ipm \\\hline
+		IP Relay  & Test machine connected on the gateway with IP relay & 184.5 ipm & tbd & 200.3 ipm & 58.5ipm\\\hline
+		\multirow{3}{0.10\textwidth}{Squid3 with cache disabled} & \multirow{3}{0.35\textwidth}{
+		Test machine connected to the gateway. Squid3 with cache disabled} &185.0 ipm & \multirow{3}{*}{tbd} & 192.5 ipm & 55.2 ipm \\
+		 & & 25\% CPU & & 27\% CPU & 12\% CPU \\
+		 & & 1.5\% Mem & & 1.5\% Mem & 1.5\% Mem \\\hline
+		
+		&&&&&\\\hline
+		&&&&&\\\hline
+                                                
+	\end{tabular}
+	\caption{
+	OSGi HTTP proxy performance comparison
+	\label{tab:perf-comparison}
+	}
+	
+\end{table*}
+
+
+From what we saw in Section~\ref{sec:migrating}, the main aspects we need to focus on to validate our approaches are:
+\begin{itemize}
+	\item Is it feasible to have a NFV-ready modular OSGi HG, with a SvNF+vNF related to video distribution?
+	\item What is the overhead associated with the proposed HG architecture composed of an OSGi bundle acting as a HTTP proxy?
+	\item What are the benefits of a NFV-ready modular HG in terms of (1) End-User QoE and (2) Network performance considering the video delivery use case?
+\end{itemize}
+
+
+\subsection{Results}
+  \subsubsection{Testbed}
+   We used commodity hardware along with 100 Mb Ethernet network.
+   As software, Ubuntu 14.04 for hypervisors and Debian 7 for the VM and gateway were used.
+   Details are represented in Figure 5. 6 Workers were started throughout the experiment.
+  \subsubsection{NFV Infrastrucre}
+   Our work is supported by the European FP7 T-NOVA project which aims at providing a NFV infrastructure based on ETSI standards.
+   For the time being, we simulated this infrastructure by using virtual machines deployed on a commodity server.
+   We used QEMU/KVM for the virtualization part.
+  \subsubsection{Remote resources}
+   For performance assessments, we made sure that remote resources accessed through the Internet would be deployed in the most stable environment possible.
+   This helped us ruling out possible network noise during our test procedures
+   
+   We used a local public Content Delivery Network provider to deploy video resources, since deploying them on a regular web server came out being too prone to network errors and latency variations.
+  \subsubsection{Testing Methodology and Goals}
+JMeter\footnote{http://jmeter.apache.org} was used to capture the network metrics of our solution.
+It allowed us to create agents and make them perform standard HTTP and report on specific performances metrics.    
+Among the metrics that we collected, we decided to analyse the throughput which is defined by JMeter to be the number of resources downloaded by minutes.
+We used 2 different resources for our experiment.
+First, we considered a 20 Mb video file, then a single HTML page which links to several other static resources like Javascript files, CSS or images. 
+   The throughput metric reflects several key aspects for performance:
+   \begin{itemize}
+   \item The latency, which is the time elapsed between the end of the query and the beginning of the response
+	\item The download time, which is the time between the beginning and the end of the response.
+   \end{itemize}
+We decided that the best and simplest way to represent the impact of the SvNF on the performance was to measure the throughput for different scenario. In the first scenario, a 20 Mb video file is downloaded, for the second scenario, a HTML page is downloaded along with 171 other attached resources of average size 16 kb. It is clear that the first scenario result will reflect the impact on the download time while the other will be much more sensitive to latency, due to the amount of smaller resources to download.
+We developed the following modules
+\begin{itemize}
+\item An OSGi Bundle deployed on the HG
+\item A Server part which is divided into 
+\begin{itemize}
+\item Central Caching Orchestration Agent
+\item Streamers vNF
+\item Workers vNF
+\end{itemize}
+
+\end{itemize}	
+
+% Please add the following required packages to your document preamble:
+
+
+
