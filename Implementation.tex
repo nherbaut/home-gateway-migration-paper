@@ -3,16 +3,23 @@
 	\begin{tabular}{|p{0.10\textwidth}|p{0.35\textwidth}||p{0.10\textwidth}|p{0.10\textwidth}|p{0.10\textwidth}|p{0.10\textwidth}|}
 		\hline
 		\multirow{2}{0.10\textwidth}{Settings} & \multirow{2}{0.35\textwidth}{Detail of the network topology and software involved}   & Video Download Throughput from NAS       & Video Download Throughput from Internet CDN      & Web Browsing Throughput from NAS & Web Browsing Throughput from Internet CDN \\ \cline{3-6}
-		 & & \multicolumn{2}{m{0.20\textwidth}|}{5 threads continuously downloading a 20 Mb video file. 1000 times} & \multicolumn{2}{m{0.20\textwidth}|}{5 threads continuously downloading 172 files of 16kb. 1000 times}\\\hline
-		Direct Connection & Test machine connected directly to Internet & 191.5 ipm & tbd & 208.2 ipm & 58.5 ipm \\\hline
+		 & & \multicolumn{2}{m{0.20\textwidth}|}{5 threads continuously downloading a 20 Mb video file. 1000 times} & \multicolumn{2}{m{0.20\textwidth}|}{5 threads continuously downloading 172 files of 16kb. 1000 times}\\\hline\hline
+		Direct Connection & Test machine connected directly to Internet & 191.5 ipm \footnote{items per minute} & tbd & 208.2 ipm & 58.5 ipm \\\hline
 		IP Relay  & Test machine connected on the gateway with IP relay & 184.5 ipm & tbd & 200.3 ipm & 58.5ipm\\\hline
 		\multirow{3}{0.10\textwidth}{Squid3 with cache disabled} & \multirow{3}{0.35\textwidth}{
 		Test machine connected to the gateway. Squid3 with cache disabled} &185.0 ipm & \multirow{3}{*}{tbd} & 192.5 ipm & 55.2 ipm \\
 		 & & 25\% CPU & & 27\% CPU & 12\% CPU \\
 		 & & 1.5\% Mem & & 1.5\% Mem & 1.5\% Mem \\\hline
 		
-		&&dfs d&&&\\\hline
-		&&&&&\\\hline
+		\multirow{3}{0.10\textwidth}{Java Proxy without rules} & \multirow{3}{0.35\textwidth}{
+		Test machine connected to the gateway,OSGi HTTP proxy launched on the gateway with no rules deployed} &184.d ipm ipm & \multirow{3}{*}{tbd} & 165.d ipm & 59.d ipm \\
+		 & & 39\% CPU & & 40\% CPU & 20\% CPU \\
+		 & & 2.5\% Mem & & 2.5\% Mem & 2.5\% Mem \\\hline
+		 
+		 \multirow{3}{0.10\textwidth}{Java Proxy with 10000 "rules"} & \multirow{3}{0.35\textwidth}{
+		Test machine connected to the gateway, OSGi HTTP proxy launched on the gateway with 10.000 "rules" deployed} &178.3 ipm & \multirow{3}{*}{tbd} & 162.d ipm & 57.d ipm \\
+		 & & 45\% CPU & & 49\% CPU & 24\% CPU \\
+		 & & 2.5\% Mem & & 2.5\% Mem & 2.5\% Mem \\\hline
                                                 
 	\end{tabular}
 	\caption{
