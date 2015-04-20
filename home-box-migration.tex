@@ -5,7 +5,7 @@
 % *** GRAPHICS RELATED PACKAGES ***
 %
 \ifCLASSINFOpdf
-  \usepackage[pdftex]{graphicx}
+  \usepackage[demo]{graphicx}
   % declare the path(s) where your graphic files are
   \graphicspath{{./fig/}}
   % and their extensions so you won't have to specify these with
@@ -226,7 +226,8 @@
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
-
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{00A0}{~}
 \begin{document}
 
 \title{Migrating to a NFV-based Home Gateway: an Evolutionary Approach}
@@ -251,7 +252,7 @@ daniel.negru@labri.fr}
 
 
 \begin{abstract}
-Virtualizing network functions is becoming a major trend in today’s research on cloud computing.
+Virtualizing network functions is becoming a major trend in today's research on cloud computing.
 Among networking elements, the Home Gateway appears to be one with the most diverse functions to handle and thus, with great potential for virtualization.
 This paper focuses on this and proposes a solution to ease adoption by Service Providers of the latest breakthroughs in cloud computing technologies towards a virtualized Home Gateway.
 Although NFV approach pretends bringing operational advantages in terms of CAPEX and OPEX, it is essential to prove them for Home Gateways scenarios where scalability, compatibility and versatility are strong requirements.
@@ -268,25 +269,25 @@ Home Gateway, Network Function Virtualization, OSGI
 
 
 
-\section{Introduction}
-\label{sec:introduction}
+\section{Introduction \label{sec:introduction}}
+
 \input{Introduction.tex}
 
 
-\section{Background and related work}
-\label{sec:background}
+\section{Background and related work \label{sec:background}}
+
 \input{Background.tex}
 
-\section{Migrating to a NVF-based home gateway}
-\label{sec:migrating}
+\section{Migrating to a NVF-based home gateway \label{sec:migrating}}
+
 \input{Migrating.tex}
 
-\section{Results}
-\label{sec:results}
+\section{Results \label{sec:results}}
+
 \input{Implementation.tex}
 
-\section{Conclusion and future work}
-\label{sec:conclusion}
+\section{Conclusion and future work \label{sec:conclusion}}
+
 \input{Conclusion.tex}
 
 \section*{Acknowledgments}
