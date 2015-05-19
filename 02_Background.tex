@@ -21,10 +21,11 @@ Even if historically customers still think they are connected to the Internet us
  
 No standard technical specification has been defined for HG. However a set of Functional Requirements is maintained by the Broadband Forum in TR-124 \cite{broadband_forum_functional_2014}.
 The following section will present the most common architectures for HGs.
-A special interest will be shown for execution environments, which are meant to achieve modularity.
+A special interest will be shown for execution environments, which are meant to achieve modularity through the Service Oriented Programming (SOP) paradigm.
 
 \subsection{Architecture and execution environment for HG}
-  \subsubsection{Firmware based HG}
+
+\subsubsection{Firmware based HG}
 HG's firmware is a custom proprietary embedded system software deployed by vendors into their devices.
 This solution is still widely used by vendors, but lacks the ability to act as a real execution environment.
 Even if SPs or EUs can alter its configuration, new services cannot easily be deployed on-the-fly.
@@ -56,6 +57,16 @@ The Home Gateway Initiative (HGI)\footnote{http://www.homegatewayinitiative.org}
 It explicitly indicates OSGi as the solution of choice to deploy additional modules in their HGI Open Platform 2.0.
 This deals with the modularity issues of the latter approaches.
 For HGI, the goal for OSGi is to allow the installation, update, removal, start and stop of new software component leaving the underlying firmware image untouched.
+
+\subsubsection{Alternative execution environements}
+
+A new trend in CPE design has emerged conjointly with the availability of alternative opensource OSes like Android\footnote{among others Bbox Miami, Freebox mini 4K are built with Android TV OS}.
+Rich of hundred thousands third party applications, they bring directly to the end-user the possibility of installing additional software to enrich the user exeperience.
+Another advantage for this model is that EUs are already familiar with the concept of application store, and their willingness to pay extra for services and applications has risen with the smartphone era.
+For the ISP the advantage is the great professional support available for those OSes, easying maintenance and support and also the possibility to agreed on revenue sharing\footnote{http://www.bloomberg.com/news/articles/2014-10-02/orange-agrees-to-distribute-netflix-video-service-in-france} with over the top (OTT) content providers like Netflix or Canal+.
+
+Even if Android comes from the smartphone world, the platform have a good support for SOP, with the service abstraction, sandboxing and built-in security. Multi-vendor services and applications can be installed and their lifecycle support the most common traits of a service bundle with the help of the built-in Task Scheduler.
+
 
 \subsection{Home Gateway Virtualization}
 The idea of virtualizing Home Gateways is not new.

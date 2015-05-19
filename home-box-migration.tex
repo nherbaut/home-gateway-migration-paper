@@ -1,5 +1,6 @@
 \documentclass[conference]{IEEEtran}
 
+
 %\usepackage{cite}
 
 % *** GRAPHICS RELATED PACKAGES ***
@@ -49,7 +50,8 @@
 
 % *** MATH PACKAGES ***
 %
-%\usepackage[cmex10]{amsmath}
+\usepackage[cmex10]{amsmath}
+\usepackage{mathtools}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics. If using
 % it, be sure to load this package with the cmex10 option to ensure that
@@ -72,7 +74,7 @@
 
 % *** SPECIALIZED LIST PACKAGES ***
 %
-%\usepackage{algorithmic}
+\usepackage{algorithmic}
 % algorithmic.sty was written by Peter Williams and Rogerio Brito.
 % This package provides an algorithmic environment fo describing algorithms.
 % You can use the algorithmic environment in-text or within a figure
@@ -88,8 +90,6 @@
 % Also of interest may be the (relatively newer and more customizable)
 % algorithmicx.sty package by Szasz Janos:
 % http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
-
-
 
 
 % *** ALIGNMENT PACKAGES ***
@@ -179,7 +179,7 @@
 
 
 
-%\usepackage{stfloats}
+\usepackage{stfloats}
 % stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
 % the ability to do double column floats at the bottom of the page as well
 % as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
@@ -205,7 +205,7 @@
 
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
-%\usepackage{url}
+\usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version can be obtained at:
@@ -214,7 +214,7 @@
 % \url{my_url_here}.
 
 
-
+\usepackage{hyperref}
 
 
 % *** Do not adjust lengths that control margins, column widths, etc. ***
@@ -226,9 +226,13 @@
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
-
+\usepackage{ bbold }
 \usepackage[utf8]{inputenc}
 \DeclareUnicodeCharacter{00A0}{~}
+\newcommand\POP{\mathit{POP}}
+\newcommand\VNF{\mathit{VNF}}
+\newcommand\CEO{\mathit{C_{or}}}
+
 \begin{document}
 
 \title{Migrating to a NFV-based Home Gateway: an Evolutionary Approach}
@@ -272,24 +276,24 @@ Home Gateway, Network Function Virtualization, OSGI
 
 \section{Introduction \label{sec:introduction}}
 
-\input{Introduction.tex}
+\input{01_Introduction.tex}
 
 
 \section{Background and related work \label{sec:background}}
 
-\input{Background.tex}
+\input{02_Background.tex}
 
 \section{Migrating to a NVF-based home gateway \label{sec:migrating}}
 
-\input{Migrating.tex}
+\input{03_Migrating.tex}
 
 \section{Results \label{sec:results}}
 
-\input{Implementation.tex}
+\input{04_Implementation.tex}
 
 \section{Conclusion and future work \label{sec:conclusion}}
 
-\input{Conclusion.tex}
+\input{05_Conclusion.tex}
 
 \section*{Acknowledgments}
 The work in this paper has been performed within the T-NOVA project. T-NOVA is an Integrated Project co-funded by the European Commission / 7th Framework Program, Grant Agreement no. 619520.
