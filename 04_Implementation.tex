@@ -47,17 +47,18 @@ The HG overhead can be decomposed in several pieces.
 It can be caused by the hardware or software and can consist of increased latency and longer packet processing.
 We decided to use the simple approach of measuring the overal througput 
 
-First, we considered a 20 Mb video file, then a single HTML page which links to several other static resources like Javascript files, CSS or images. 
+First, we considered downloading a video file, then a single HTML page which links to several other static resources like Javascript files, CSS or images. 
 We decided that the best and simplest way to represent the impact of the SvNF on the performance was to measure the throughput for different scenario. In the first scenario, a 20 Mb video file is downloaded, for the second scenario, a HTML page is downloaded along with 171 other attached resources of average size 16 kb. It is clear that the first scenario result will reflect the impact on the download time while the other will be much more sensitive to latency, due to the amount of smaller resources to download.
-We developed an OSGi Bundle deployed on the HG over Apache Karaf.
+
+We evaluated our solution with two different rules settings deployed in the SvNF. In the first one, we didn't deploy any rules, assessing only the overhead linked to the application network framework. In the second one however, we deployed 10.000 rules, causing our bundle to process both requests and responses wrt those rules thereby assessing its ability to perform pattern matching.
+
+We developed an OSGi Bundle deployed on the HG over Apache Karaf/Felux, a popular OSGi runtime.
 
 \subsection{Results}
 
 Hardware overhead can be assessed by comparing the throughput from "Direct Connection" where the host is directly connected to the WAN access point to the "IP forwarding" where we configured the gateway to perform IP forwarding at kernel level. The hardware overhead is minimal, generally less than 7\%.
 We decided to assess the overhead caused the system by comparing a well-known HTTP proxy called Squid3 to our solution under different settings. To have a better grasp of the amont of resource consumed by our solution, we also reported CPU and memory consumption for each settings as well.
-We can see that our solution competes well with Squid3, since the maximum penalty is 11\%. More interestingly, we can see 
-
-
+We can see that our solution competes well with Squid3, since the maximum penalty is 11\%. More interestingly, we can see that our solution is not overly penalized by the rules installed in the vHG as the maximum penalty is 5 \% wrt the performances of the system without any rule. CPU is also affected up to 9 percentage points.
 
 
 % Please add the following required packages to your document preamble:
