@@ -76,7 +76,7 @@ Let's consider the three possible scenarios.
 
 \subsubsection*{Scenario 1: no operation scenario}
 
-In this scenario, the content consumed by the user is not eligible to the enhancements brought by the system. None of the rules $r_{i}$ deployed on $G_{u}$ matches the request or the response and and the content doesn't match any $c^{i,u}_{j}$ either. We note $\mathbb{1}_{r_{i}}(.)$ such that:
+In this scenario, the content consumed by the user is not eligible to the enhancements brought by the system. None of the rules $r_{i}$ deployed on $G_{u}$ matches the request or the response and and the content doesn't match any $c^{i,u}_{j}$ either. We note $\mathbb{1}_{r_{i}}(.)$ and $\mathbb{1}_{c^{i,u}_{j}}(.)$ such that:
 \[
     \mathbb{1 }_{r_{i}}(\mathit{message})= 
 \begin{dcases}
@@ -99,8 +99,8 @@ After the gateway has analysed the request, it is forwarded to its original dest
 	
 \STATE User $u$ requests a resource
 \STATE $G_{u}$ receives request $\mathit{Req}$ from $u$
-\STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Req})}=0 \){}
-\STATE \( \sum_{c^{i,u}_{j}\in C_{u}}{\mathbb{1}_{c^{i,u}_{j}}(\mathit{Req})}=0 \){}
+\STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Req})}=0 \)
+\STATE \( \sum_{c^{i,u}_{j}\in C_{u}}{\mathbb{1}_{c^{i,u}_{j}}(\mathit{Req})}=0 \)
 \STATE $G_{u}$ forward $\mathit{Req}$ to its original destination \(\mathit{CP}_{\mathit{network}}\)
 \STATE $G_{u}$ receives response $\mathit{Res}$ from \(\mathit{CP}_{\mathit{network}}\)
 \STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Res})}=0 \)
@@ -143,13 +143,13 @@ In this scenario, the resource targeted by the user matches the Rules, but is no
 \STATE User $u$ requests a resource
 \STATE $G_{u}$ receives request $\mathit{Req}$ from $u$
 \STATE \( \sum_{c^{i,u}_{j}\in C_{u}}{\mathbb{1}_{c^{i,u}_{j}}(\mathit{Req})} = 0 \)
-\STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Req})} = M_{req}  \)
+\STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Req})} > 0  \)
 \IF { $M_{req}>0$}
 \STATE $G_{u}$ informs $\CEO$ that $u$ requested $\mathit{Req}$
 \ENDIF
 \STATE $G_{u}$ forward $\mathit{Req}$ to its original destination \(\mathit{CP}_{\mathit{network}}\)
 
-\STATE $G_{u}$ receives response $\mathit{Res}$ from \(\mathit{CP}_{\mathit{network}}\){}
+\STATE $G_{u}$ receives response $\mathit{Res}$ from \(\mathit{CP}_{\mathit{network}}\)
 \IF { $M_{req} = 0$ }
 	\STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Res})}=M_{res}\) 
 	\IF { $M_{res} = 0$}
@@ -187,5 +187,3 @@ If this pattern is widespread amongst users, the Caching and Transcoding Orchest
 
 This approach allows CP to broadcast its content in cooperation with SP NVF network with limited technical interaction.
 Indeed, expressing contractual SLA target is enough for the CP to deploy its content, as the SP's vNF becomes responsible for determining (1) which content to cache (2) which enhancements to bring to the content and (3) where to cache the content.
-
-

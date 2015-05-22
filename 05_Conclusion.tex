@@ -1,8 +1,6 @@
 We proposed a solution to help NFV becoming a reality for modular HG, making a first step to a fully virtualized home environment as proposed by ETSI.
-We implemented a vNF and we used it to bring major enhancements to the HG, thanks to a small OSGi bundle.
+We implemented a vNF and we used it to bring major enhancements to the HG, thanks to a small but efficient OSGi bundle collaborating with vNF deploy in operator POPs.
 
-More work should be carried out to optimize server-side task scheduling by using user's context information from the HG.
-This would help giving greater priority to the most useful ones.
-For OSGi modules, security, service isolation and management aspects has not been studied thoroughly and should be investigated.
+For OSGi modules, security, service isolation and management aspects has not been studied thoroughly and should be investigated especially in a multi-tenant scenario.
 Other network functions play a key role in vNF HG like NAT and should also be investigated.
 For that, we must solve different issues, more related to network performances than to computational power. 
