@@ -1,11 +1,4 @@
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.45\textwidth,natwidth=6955,natheight=3398]{fig/vhgMigrationPath.png}
-  \end{center}
-  \caption{ Migration path from Modular to Virtual HG.
-    \label{fig:migration}
-  }
-\end{figure}
+
 
 Given all the advantages brought by the virtualization of the home environement, we should see a dramatic market swap.
 Even if field studies are currently conducted\footnote{Telefónica and NEC win innovation award for virtualized home gateway trials: http://tinyurl.com/o8cl3bv}, they focus mainly on emerging markets.
@@ -16,11 +9,10 @@ Focusing on the introduction of new services made possible by virtualization tec
 
 
 \subsection{The NFV ready Modular HG}
-We propose an alternative migration path where vNFs collaborate with modular gateways.
-Figure~\ref{fig:migration} presents a Modular HG with \textit{"Surrogate vNF"} (SvNF) deployed on the device.
+We propose an alternative migration path where vNFs collaborate with modular gateways. We introduce the concept of \textit{"Surrogate vNF"} (SvNF) shown in Figure~\ref{fig:migration} that presents a Modular HG with  deployed on the device.
 A SvNF is an OSGi bundle that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF.
 
-To offer a proper support to OSGi SvNF modules can be aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
+To offer a proper support to OSGi, SvNF modules can be aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
 For example, if the gateway cannot find any suitable vNF in a predefined SP point of presence (POP) list, it will fall back on legacy mode and keep using the native functionality instead of the virtualized one.
 
 The key role played by the couple SvNF+vNF in the migration path is that the vNF part is used on both the OSGi modular gateway scenario and on the L2 bridge scenario.
@@ -133,7 +125,7 @@ In this scenario, the content has been processed by the system and is made avail
 Those are part of the NVF infrastructure, and handle storage and content delivery.
 They are managed by SP and can be collocated with existing O-CDNs (operator-managed CDN).
 vNFs are deployed in regional POPs and provisioned close to the user, limiting the number of hops with respect to the original Content Provider network.
-As the network become capable of handling both delivery and transcoding, bandwidth and storage consumptions are reduced. Considering that orchestrator can detect which version (low, standard or high def) should be provisionned, in which POP and use just in time transcoding to generate only the version to be deployed.
+As the network becomes capable of handling both delivery and transcoding, bandwidth and storage consumptions are reduced. Considering that orchestrator can detect which version (low, standard or high def) should be provisionned, in which POP and use just in time transcoding to generate only the version to be deployed.
 
 \subsubsection*{Scenario 3: Cache miss scenario}
 
@@ -161,8 +153,8 @@ In this scenario, the resource targeted by the user matches the Rules, but is no
 \STATE User $u$ receives $\mathit{Res}$ from \(\mathit{CP}_{\mathit{network}}\) through $G_{u}$
 \end{algorithmic}
 
-Here, $\CEO$ is informed that a cache request has not been fulfilled. According to its provisionning algorithm, it can decide to deploy the resource corresponding to $\mathit{Req}$ in a $p_{i}$ wether by transcoding the original file from \(\mathit{CP}_{\mathit{network}}\) to a $p_{i}$ or by reprovisionning $c^{k,u}_{j}$ to $p_{i}$.
- If a modification has been operated on the POPS, $\CEO$ will update the gateways cache tables.
+Here, $\CEO$ is informed that a cache request has not been fulfilled. According to its provisionning algorithm, it can decide to deploy the resource corresponding to $\mathit{Req}$ in a $p_{i}$ either by transcoding the original file from \(\mathit{CP}_{\mathit{network}}\) to a $p_{i}$ or by reprovisionning $c^{k,u}_{j}$ to $p_{i}$.
+If a modification has been operated on the POPS, $\CEO$ will update the gateways cache tables.
 
 Finally, the last scenario is the one where the content is eligible for caching and transcoding but no cached version is yet available to the vHG from where the request has been made.
 In this case the cache is missed and the content is retrieved from the CP.

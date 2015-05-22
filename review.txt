@@ -1,0 +1,12 @@
+review
+add paper reference on figure 2.
+5 pages
+
+III. A Présentation du concept 1 column, avec Schema inclus
+III B Feasability
+ajouter le lien vers l'évaluation pour le scenario 1
+
+III C scenario
+intervertir scenario 2 et 3	
+
+introdure surrogate vnf approach dans l'avant dernier paragraphe de l'intro.
