@@ -1,29 +1,11 @@
 
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.45\textwidth,natwidth=7838,natheight=4517]{fig/vhgtrends.png}
-  \end{center}
-  \caption{ Major trends for technical aspects of Home Gateway Virtualization
-    \label{fig:trends}
-  }
-\end{figure}
-
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.45\textwidth,natwidth=6955,natheight=3398]{fig/vhgMigrationPath.png}
-  \end{center}
-  \caption{ Migration path from Modular to Virtual HG.
-    \label{fig:migration}
-  }
-\end{figure}
-
-
 Even if historically customers still think they are connected to the Internet using a simple modem, the truth is that broadband connection is delivered by a full-fledge HG, integrating the functions of a modem, network address translation (NAT) router, Ethernet switch, WiFi access point, DHCP server, firewall, among others.
  
 No standard technical specification has been defined for HG. However a set of Functional Requirements is maintained by the Broadband Forum in TR-124 \cite{broadband_forum_functional_2014}.
 The following section will present the most common architectures for HGs.
 A special interest will be shown for execution environments, which are meant to achieve modularity through the Service Oriented Programming (SOP) paradigm.
+
 
 \subsection{Architecture and execution environment for HG}
 
@@ -48,6 +30,15 @@ Modularity can be achieved within the GNU/Linux platform.
 The large application catalog available, usually benefits from low memory consumption and low IO footprint.
 However, programs must be cross platform and Service Oriented Architecture is not natively supported.
 Due to this, alternative execution environments such as OSGi are promoted.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth,natwidth=6000,natheight=4000]{fig/vhgtrends.png}
+  \end{center}
+  \caption{ Major trends for technical aspects of Home Gateway Virtualization
+    \label{fig:trends}
+  }
+\end{figure}
    
 \subsubsection{HG with OSGI execution environment}
    
@@ -69,6 +60,15 @@ For the ISP the advantage is the great professional support available for those 
 
 Even if Android comes from the smartphone world, the platform have a good support for SOP, with the service abstraction, sandboxing and built-in security. Multi-vendor services and applications can be installed and their lifecycle support the most common traits of a service bundle with the help of the built-in Task Scheduler.
 
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth,natwidth=6000,natheight=4000]{fig/vhgMigrationPath.png}
+  \end{center}
+  \caption{ Migration path from Modular to Virtual HG.
+    \label{fig:migration}
+  }
+\end{figure}
 
 \subsection{Home Gateway Virtualization}
 The idea of virtualizing Home Gateways is not new.
