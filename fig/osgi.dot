@@ -1,0 +1,53 @@
+digraph graphname {
+ 
+ 
+ rankdir=LR;
+ #layout=neato;
+overlap=false;
+splines=true;
+pack=true;
+start="random";
+sep=0.1;
+
+ 
+  
+  start [label = "Deploy SvNF \non the Gateway", shape="oval",  color="black"];
+  installed [shape = "box3d", fillcolor="#B1C3D4", style="filled"];
+  uninstalled [shape = "box3d", fillcolor="#B1C3D4", style="filled"];
+  starting [shape = "box3d", fillcolor="#B1C3D4", style="filled"];
+  
+  stopping [shape = "box3d", fillcolor="#B1C3D4", style="filled",weight=5];
+  active [shape = "box3d", fillcolor="green", style="filled",weight=10];
+  resolved [shape = "box3d",fillcolor="#B1C3D4", style="filled"];
+  
+  
+  start -> installed [label = "",fontcolor="black",constraint=true,penwidth=2];
+ 
+	
+	 subgraph cluster1{
+	installed -> uninstalled [arrowhead=normal,arrowtail=dot];
+	installed -> resolved [label = "resolve", labeldistance=2;fontsize=10, fontcolor="dimgray",constraint=true,penwidth=2]
+	resolved -> installed  [constraint=true,style=dotted];
+	resolved -> uninstalled [style=dotted];
+	resolved -> starting [label = "start",fontsize=10, fontcolor="dimgray",penwidth=2];
+	resolved -> resolved [label = "Waiting for vNF",penwidth=2];
+	label="Provisionning Phase - resolving SvNF dependencies";
+}
+
+subgraph cluster0{
+
+		rank="sink";
+		starting -> active [ label = "vNF Available", fontcolor="black", fontsize=14, constraint=true,penwidth=2];
+		active -> stopping [label = "stop",fontsize=10, fontcolor="dimgray",constraint=true,style=dotted];
+		stopping -> resolved [constraint=true,style=dotted];
+		color="blue";
+		label="Operation Phase - SvNF+vNF Engaged";
+		
+	}
+	subgraph cluster2{
+ legacy [label = "Service on the Gateway", shape = "box3d", style=filled,fillcolor="#B1C3D4" ];
+  vNF [label = "Service on the vNF", shape = "box3d", fillcolor="green", style="filled", nodesep=0.05];
+  }
+
+ }
+

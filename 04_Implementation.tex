@@ -26,7 +26,7 @@ Section~\ref{sec:migrating} described the role of SvNF deployed on the HG and th
 As our proposal aims at showing how software deployed in a modular HG can play a role in a vNF architecture, our focus for the evaluation is devoted to assessing HG side performance, memory footprint and environement execution. In a future work, we will also asses server-side operations.
 
 
-\subsection{Testbed}
+\subsection{Testbed }\label{Testbed}
 
 For the testbed, we used commodity hardware along with 100 Mb Ethernet network. As software, Ubuntu 14.04 for hypervisors and Debian 7 for the VM and gateway were used. Workers were started throughout the experiment.
   
@@ -47,11 +47,19 @@ We evaluated our solution with two different rules settings deployed in the SvNF
 
 We developed an OSGi Bundle deployed on the HG over Apache Karaf/Felix, a popular OSGi runtime.
 
-\subsection{Results}
+\subsubsection{Results}
 
 Hardware overhead can be assessed by comparing the throughput from "Direct Connection" where the host is directly connected to the WAN access point to the "IP forwarding" where we configured the gateway to perform IP forwarding at kernel level. The hardware overhead is minimal, generally less than 7\%.
 We decided to assess the overhead caused the system by comparing a well-known HTTP proxy called Squid3 to our solution under different settings. To have a better grasp of the amont of resource consumed by our solution, we also reported CPU and memory consumption for each settings as well.
 We can see that our solution competes well with Squid3, since the maximum penalty is 11\%. More interestingly, we can see that our solution is not overly penalized by the rules installed in the vHG as the maximum penalty is 5 \% wrt the performances of the system without any rule. CPU is also affected up to 9 percentage points.
+
+\subsection{Simulation of Video Delivery} \label{videodelivery}
+
+blha
+
+\subsection{Simulation of provisionning decision} \label{provisionningdecisions}
+
+blha
 
 
 % Please add the following required packages to your document preamble:
