@@ -1,0 +1,75 @@
+digraph graphname {
+compound=true;
+#margin=0;
+#overlap=false;
+#splines=true;
+pack=true;
+start="random";
+sep=0.1;
+bgcolor=transparent;	
+
+
+
+ {
+	 
+  
+	 
+  subgraph cluster0{
+	  fillcolor="#FFD1AA";
+	  style="filled";
+  mono [shape = "box3d", fillcolor="#AA3939", style="filled",label="Firmware-based"];
+  label="Today : Monolithic HG";
+  }
+  
+  subgraph cluster1{
+	  fillcolor="#FFD1AA";
+	  style="filled";
+	  	  
+	  
+  mod [shape = "box3d", fillcolor="#AA3939", style="filled",label="Modular and NFV-ready HG"];
+  label="Tomorrow: HGI and ETSI Compliant";
+		  subgraph cluster1_1{
+			  fillcolor="#88CC88";
+	  style="filled";
+			  rank=same;
+		  svnf1 [shape = "box", fillcolor="#226666", style="filled",label="SvNF"];
+		  svnf2 [shape = "box", fillcolor="#226666", style="filled",label="SvNF"];
+		   label="Surrogate vNF deployed on HG";
+		   
+		   
+		  }
+		  
+	      
+  }
+ 
+  subgraph cluster2{
+	  fillcolor="#FFD1AA";
+	  style="filled";
+  full [shape = "box3d", fillcolor="#AA3939", style="filled",label="Fully NFV-based HG"];
+  label="After Tomorrow: L2 Bridge";
+  
+  subgraph cluster2_2{
+	  fillcolor="#88CC88";
+	  style="filled";
+	  rank=same;
+	  vnf1 [shape = "box", fillcolor="#226666", style="filled",label="vNF"];
+	  vnf2 [shape = "box", fillcolor="#226666", style="filled",label="vNF"];
+      vnf3 [shape = "box", fillcolor="#226666", style="filled",label="vNF"];
+    
+      }
+      
+     mod -> svnf1[color="black",  lhead="cluster1_1", minlen=1.8];  
+    full -> vnf2 [color="black",  lhead="cluster2_2", minlen=1.8];  
+      
+      svnf1:s -> vnf2:s [constraint=false,style="dotted"] ;
+      
+      svnf2:s -> vnf3:s [constraint=false,style="dotted"];
+      
+
+
+	}
+	  
+  }
+  
+  
+}

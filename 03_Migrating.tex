@@ -20,7 +20,7 @@ Focusing on the introduction of new services made possible by virtualization tec
 	
 	\center
 
-	\includegraphics[width=0.90\textwidth]{fig/osgi.eps}
+	\includegraphics[width=0.90\textwidth]{fig/osgi.pdf}
 	\caption{ Supporting SvNF operation using standard OSGi life cycle.
     \label{fig:osgisvnf}
     }
@@ -29,14 +29,16 @@ Focusing on the introduction of new services made possible by virtualization tec
 	   
 
 
-We propose an alternative migration path where vNFs collaborate with modular gateways. We introduce the concept of \textit{"Surrogate vNF"} (SvNF) shown in Figure~\ref{fig:migration} that presents a Modular HG with  deployed on the device.
+We propose an alternative migration path where vNFs collaborate with modular gateways. We introduce the concept of \textit{Surrogate vNF} (SvNF) in Figure~\ref{fig:migration}. 
 A SvNF is an OSGi bundle that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF.
 
-To offer a proper support to OSGi, SvNF modules can be aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
-OSGi specifications already bind the lifecycle of a bundle to resolved middleware resources. 
-As show in ~Figure\ref{fig:osgisvnf}, We extend this capability to network resources by allowing the SvNF to register itself to the runtime environement only if any suitable vNF is available in the network, falling back on legacy mode and keeping using the native service if the virtualized one is not available.
+The key role played by the SvNF+vNF couple in the migration path is that the vNF part is used on both the OSGi modular gateway scenario and on the L2 bridge scenario, allowing gradual migration of SP installed based while securing investments of the vNF. 
 
-The key role played by the SvNF+vNF couple in the migration path is that the vNF part is used on both the OSGi modular gateway scenario and on the L2 bridge scenario, allowing gradual migration of SP installed based while securing investments of the vNF.
+SvNF modules leverage the existing OSGi lifecycle and resource provisionning mechanisms, but extend it also to network resources. SvNF modules are aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
+As shown in ~Figure\ref{fig:osgisvnf}, we extend the semantics of OSGi lifecycle by adding the capability to depend on network resources as well. SvNF modules register themselves on the runtime environement only if any suitable vNF is available in the network. The HG falls back to legacy mode and keep using the native service if the virtualized one is not available.
+
+Using SvNF, SPs are able to push new services to every customers in an hybrid scenario where some customers go 100\% virtualized where it makes sense, while the others still run their legacy home gateways
+
  
 \subsection{Feasibility: application to video delivery}
 \begin{figure*}
@@ -86,7 +88,7 @@ Let's consider the three possible scenarios.
 %The vNF-Capable Gateway analyses the video format, and checks it is technically compatible with the system (e.g. a supported video codec and supported delivery method).
 %If it is compatible, we continue to scenario 2, otherwise, we proceed with scenario 1.
 
-\subsubsection*{Scenario 1: no operation scenario}
+\subsubsection*{Scenario 1: no operation scenario}\label{noop}
 
 In this scenario, the content consumed by the user is not eligible to the enhancements brought by the system. None of the rules $r_{i}$ deployed on $\SVNF_{u}$ matches the request or the response and and the content doesn't match any $c^{i,u}_{j}$ either. We note $\mathbb{1}_{r_{i}}(.)$ and $\mathbb{1}_{c^{i,u}_{j}}(.)$ such that:
 \[

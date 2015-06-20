@@ -1,1 +1,3 @@
-cat ./osgi.dot |dot -Teps -oosgi.eps
+cat ./osgi.dot |dot -Tpdf -oosgi.pdf
+cat ./migrationPath.dot |dot -Tpdf -omigrationPath.pdf
+

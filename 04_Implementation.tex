@@ -23,44 +23,71 @@ Settings 4 & client connected to SvNF proxy hosted on the gateway with 10,000 ru
 \end{table*}
 
 Section~\ref{sec:migrating} described the role of SvNF deployed on the HG and the server-side infrastructure composed of various vNF: Streamers deployed in POPS, Caching and Transcoding orchestrator and Transcoding vNF deployed in the core.
-As our proposal aims at showing how software deployed in a modular HG can play a role in a vNF architecture, our focus for the evaluation is devoted to assessing HG side performance, memory footprint and environement execution. In a future work, we will also asses server-side operations.
+As our proposal aims at showing how software deployed in a modular HG can play a role in a vNF architecture, our focus for the evaluation is devoted to assessing HG side performance, memory footprint and environement execution. We also used simulation to evaluate the benefits of this system, based on sensible hypotheses from a French SP network.
 
 
-\subsection{Testbed }\label{Testbed}
+\subsection{SvNF Evaluation }\label{Testbed}
 
-For the testbed, we used commodity hardware along with 100 Mb Ethernet network. As software, Ubuntu 14.04 for hypervisors and Debian 7 for the VM and gateway were used. Workers were started throughout the experiment.
-  
-For performance assessments, we made sure that remote resources awould be deployed in the most stable environment possible. This helped us ruling out possible network noise during our test procedures. We used a dedicated network attached storage connected to the same access point which provided us with very stable performances and low latencyto deploy video resources and file. We also included the results from fetching resources from a CDN reached through WAN.
+We deployed the SvNF OSGi bundle in the Apache Karaf OSGi runtime on an PC Engines APU/1C gateway running Debian Jessie. 
+The APU/1C gateway is built uppon a low-power AMD Bobcat microarchitecture, with 3 Gigabit Ethernet channels. The gateway connects the test operator and a PC file server.
 
- \subsubsection{Testing Methodology}
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth,natwidth=6000,natheight=4000]{fig/testbed.pdf}
+  \end{center}
+  \caption{ SvNF Performances testbed
+    \label{fig:testbed}
+  }
+\end{figure}	
+
 JMeter\footnote{http://jmeter.apache.org} was used to capture the network metrics of our solution.
-It allowed us to create agents and make them perform standard HTTP and report on specific performances metrics.    
+It allowed us to create agents and make them perform standard HTTP queries and report on specific performances metrics. Each experiment consisted of 10 agents continuously downloading target resources on the HTTP file server, 10000 times.
 
-The HG overhead can be decomposed in several pieces.
-It can be caused by the hardware or software and can consist of increased latency and longer packet processing.
-We decided to use the simple approach of measuring the overal througput 
+We considered two different validation usecase: Web Traffic and File Transfer. First, the agents were to download a 192 Mb video file, then a single HTML page which linked to 171 static resources composed of Javascript files, CSS and images of average size 16 kb.
 
-First, we considered downloading a video file, then a single HTML page which links to several other static resources like Javascript files, CSS or images. 
-We decided that the best and simplest way to represent the impact of the SvNF on the performance was to measure the throughput for different scenario. In the first scenario, a 20 Mb video file is downloaded, for the second scenario, a HTML page is downloaded along with 171 other attached resources of average size 16 kb. It is clear that the first scenario result will reflect the impact on the download time while the other will be much more sensitive to latency, due to the amount of smaller resources to download.
+We evaluated our solution with two different rules settings deployed in the SvNF. In the first one, we didn't deploy any rule, assessing only the overhead linked to the application network framework. In the second one however, we deployed 10.000 rules, causing the SvNF to process both requests and responses wrt those rules thereby assessing its ability to perform pattern matching in a timely manner. Both cases reflect the no operation scenario presented in ~section \ref{noop}.
 
-We evaluated our solution with two different rules settings deployed in the SvNF. In the first one, we didn't deploy any rules, assessing only the overhead linked to the application network framework. In the second one however, we deployed 10.000 rules, causing our bundle to process both requests and responses wrt those rules thereby assessing its ability to perform pattern matching.
+We decided to assess the overhead caused the SvNF by comparing it to the well-known Squid3 HTTP proxy. To have a better grasp of the amont of resources consumed by the SvNF, we also reported CPU and memory consumption for each settings as well.
 
-We developed an OSGi Bundle deployed on the HG over Apache Karaf/Felix, a popular OSGi runtime.
+From ~Table \ref{tab:perf-comparison} we can see that the performances in term of throughput is globally the same across all settings, with the maximum deviation from the baseline settings 1 being less that 0.3\%.
+In settings 2-4, we also see that a significant share of CPU power is dedicated to processing the resquests for both Squid3 and the SvNF, with the SvNF consuming up to a 25\% extra CPU time, but with no drop in performances. This can be explained by the fact that the SvNF runs on top of a JVM, while Squid is a native application.
 
-\subsubsection{Results}
-
-Hardware overhead can be assessed by comparing the throughput from "Direct Connection" where the host is directly connected to the WAN access point to the "IP forwarding" where we configured the gateway to perform IP forwarding at kernel level. The hardware overhead is minimal, generally less than 7\%.
-We decided to assess the overhead caused the system by comparing a well-known HTTP proxy called Squid3 to our solution under different settings. To have a better grasp of the amont of resource consumed by our solution, we also reported CPU and memory consumption for each settings as well.
-We can see that our solution competes well with Squid3, since the maximum penalty is 11\%. More interestingly, we can see that our solution is not overly penalized by the rules installed in the vHG as the maximum penalty is 5 \% wrt the performances of the system without any rule. CPU is also affected up to 9 percentage points.
+As this experiment doesn't intend to mimic real life internet usages but to stress the system up the its limits, we conclude that even with the extra CPU involved, our solution doesn't significatively penalize the end user, validating that SvNF can be deployed on modular Home Gateways.
 
 \subsection{Simulation of Video Delivery} \label{videodelivery}
+\begin{table}
+	\begin{tabular}{| p{0.1\textwidth} | p{0.3\textwidth} |}
+	\hline
+		Video Popularity & Normal \\\hline
+		Video Size&Pareto Law with share=3 and average video size=30Mb\\\hline
+		Request arrival & Poisson Law with $\lambda=${}\\\hline
+		Requested bitrate & 320kbps\\\hline
+		\# of gateways & 100\\\hline
+		\# of video download & 1300\\\hline
+		SLA Violation & less than 90\% of the target bitrate 10s after the request\\\hline
+		Video provisionning delay & 3 s\\\hline
+		
+		
+	\end{tabular}
+\end{table}
+We simulated the network deployement presented in ~Figure\ref{fig:hld} with NS3 with a single POP.
+We aimed at understanding the benefits for having a POP dynamically provisionning user-requested video. 
+The POP beeing located near the user, its latency is reduced wrt the CP network (backed by CDN), hence a possible higher throughput for HTTP traffic like video streaming.
+First, we see that in homogeneous traffic condition (up to XXXs in the plot), CP network can be provisionned to handle the load with limited to none SLA violation. 
 
-blha
+We also included a consumption peak as s=YYY which is caraterized by a greater request arrival rate as well as a more concentrated distribution.
+Consumption peaks usually occur when a viral video is posted, most of the time on the landing page of the content provider. Beeing able to cache this kind of video and bring it as close as possible to the users is a key indicator of success for the vNF.
+
+
+
 
 \subsection{Simulation of provisionning decision} \label{provisionningdecisions}
 
-blha
-
+POP are designed to have great network performances for a given geographic area, and need to be spread throughout the territory for a reduced price.
+In order to mitigate the storage cost, the caching controller takes the decision to provision as few videos as possible to fullfill the SLA. Several factor can influence the decision, like the transcoding time, the vNF booting time, hosting costs and so on.
+Taking the decision to provision a video in a specific POP means classifying the video as cachable according to some metadata, like the view count in a certain time window.
+In \cite{silvestre_boosting_2015}, the authors proposed a model for predicting the popularity of a video, and estimated that view counts accounted for 82\% of the relative importance. 
+We decided to evaluate the 
 
 % Please add the following required packages to your document preamble:
 
