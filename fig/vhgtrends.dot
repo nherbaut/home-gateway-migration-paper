@@ -1,0 +1,71 @@
+digraph graphname {
+compound=true;
+#margin=0;
+#overlap=false;
+splines=false;
+pack=true;
+start="random";
+sep=0.1;
+bgcolor=transparent;	
+rankdir=LR;
+subgraph cluster0{
+	fillcolor="#FFD1AA";
+	style="filled";
+	label="Today";
+mono [label="Monolithic HG\nfirmware based",shape = "box3d", fillcolor="#AA3939", style="filled"];
+
+}
+
+subgraph cluster1{
+	fillcolor="#FFD1AA";
+	style="filled";
+	label="Tomorrow";
+modular[label="Modular HG\nHGI Vision",shape = "box3d", fillcolor="#AA3939", style="filled"];
+full[label="Fully vNF based hg\nL2 Bridge",shape = "box3d", fillcolor="#AA3939", style="filled"];
+}
+
+subgraph cluster2{
+	
+		color="white";
+		label="Proposed Solutions for \nHome Environement Virtualization";
+	
+	subgraph cluster2_1{
+		fillcolor="#88CC88";
+		style="filled";
+		color="black";
+		label="Eurescom";
+		dslam [shape = "box", fillcolor="#226666", style="filled",label="DSLAM"];
+		standa [shape = "box", fillcolor="#226666", style="filled",label="Stand Alone Appliance"];
+		bng [shape = "box", fillcolor="#226666", style="filled",label="Border Network Gateway"];
+	}
+	
+	subgraph cluster2_2{
+		fillcolor="#88CC88";
+		style="filled";
+		color="black";
+		label="ETSI";
+		vnf [shape = "box", fillcolor="#226666", style="filled",label="vNF based services"];
+	}
+	
+	subgraph cluster2_3{
+		fillcolor="#88CC88";
+		style="filled";
+		color="black";
+		label="Cruz";
+		vhg [shape = "box", fillcolor="#226666", style="filled",label="Virtualized Home Gateway"];
+	}
+}
+
+
+
+
+
+	mono -> modular [ltail="cluster0",lhead="cluster1", minlen=2];
+mono -> full [ltail="cluster0",lhead="cluster1",minlen=2];
+full:e -> vnf [lhead="cluster2_2",ltail="cluster1",minlen=2];
+full:e -> vhg:n [lhead="cluster2_3",ltail="cluster1",minlen=2];
+
+full:e -> standa [lhead="cluster2_1",ltail="cluster1",minlen=2];
+  
+  
+}

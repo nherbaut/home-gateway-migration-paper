@@ -2,7 +2,7 @@ digraph graphname {
 compound=true;
 #margin=0;
 #overlap=false;
-#splines=true;
+splines=true;
 pack=true;
 start="random";
 sep=0.1;
