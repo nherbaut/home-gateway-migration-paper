@@ -38,6 +38,22 @@ The APU/1C gateway is built uppon a low-power AMD Bobcat microarchitecture, with
   }
 \end{figure}	
 
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{fig/CP+POP_evaluation.pdf}
+  \end{center}
+  \caption{ SvNF Performances testbed
+    \label{fig:cppopeval}
+  }
+\end{figure}	
+
+
+
+
+
+
+
 JMeter\footnote{http://jmeter.apache.org} was used to capture the network metrics of our solution.
 It allowed us to create agents and make them perform standard HTTP queries and report on specific performances metrics. Each experiment consisted of 10 agents continuously downloading target resources on the HTTP file server, 10000 times.
 
@@ -54,40 +70,64 @@ As this experiment doesn't intend to mimic real life internet usages but to stre
 
 \subsection{Simulation of Video Delivery} \label{videodelivery}
 \begin{table}
-	\begin{tabular}{| p{0.1\textwidth} | p{0.3\textwidth} |}
-	\hline
-		Video Popularity & Normal \\\hline
-		Video Size&Pareto Law with share=3 and average video size=30Mb\\\hline
-		Request arrival & Poisson Law with $\lambda=${}\\\hline
-		Requested bitrate & 320kbps\\\hline
-		\# of gateways & 100\\\hline
-		\# of video download & 1300\\\hline
-		SLA Violation & less than 90\% of the target bitrate 10s after the request\\\hline
-		Video provisionning delay & 3 s\\\hline
-		
-		
-	\end{tabular}
+	\scalebox{0.7}{
+		\begin{tabular}{| l | l | l|}
+		\hline
+			\textbf{Settings} & \textbf{Scenario A} & \textbf{Scenario B}\\\hline
+			CP Bandwidth &0 Gbps&2 Gbps\\\hline
+			POP Bandwidth &1 Gbps&1 Gbps\\\hline
+			POP latency& \multicolumn{2}{l|}{25ms} \\\hline
+			CP latency& \multicolumn{2}{l|}{50ms} \\\hline
+			Video Distribution& \multicolumn{2}{l|}{Normal} \\\hline
+			Video Size&\multicolumn{2}{l|}{Pareto with average video size=10Mb}\\\hline
+			Requested bitrate &\multicolumn{2}{l|}{320kbps}\\\hline
+			\# of gateways &\multicolumn{2}{l|}{ 200}\\\hline
+			\# of video (cruising/peak) &\multicolumn{2}{l|}{ 200/100}\\\hline
+			Mean time between request (cruising/peak) &\multicolumn{2}{l|}{ 0.1s/0.05s (Poisson))}\\\hline
+			SLA Violation criteria &\multicolumn{2}{l|}{ less than 75\% of the target bitrate 10s after the request}\\\hline
+			Video Caching&\multicolumn{2}{l|}{after 4 requests}\\\hline
+		\end{tabular}
+	}
+	\caption{Hypothesis used for simulation\label{simu1}}
 \end{table}
-We simulated the network deployement presented in ~Figure\ref{fig:hld} with NS3 with a single POP.
+We simulated the network deployement presented in ~Figure \ref{fig:hld}, with the specifications presented in ~Table \ref{simu1} with NS3.
+
 We aimed at understanding the benefits for having a POP dynamically provisionning user-requested video. 
 The POP beeing located near the user, its latency is reduced wrt the CP network (backed by CDN), hence a possible higher throughput for HTTP traffic like video streaming.
-First, we see that in homogeneous traffic condition (up to XXXs in the plot), CP network can be provisionned to handle the load with limited to none SLA violation. 
+For our simulation, we included two types of patterns. The first one is composed of video requests emmited regularly by the clients, which generate a cruising phase traffic. We also included another source of traffic at \textit{25s} which is caraterized by a greater request arrival rate as well as a more concentrated distribution of videos. Consumption peaks usually occur when a viral video is posted, most of the time on the landing page of the content provider. Beeing able to cache this kind of video and to serve them as close as possible to the users is a key indicator of success for the vNF.
 
-We also included a consumption peak as s=YYY which is caraterized by a greater request arrival rate as well as a more concentrated distribution.
-Consumption peaks usually occur when a viral video is posted, most of the time on the landing page of the content provider. Beeing able to cache this kind of video and bring it as close as possible to the users is a key indicator of success for the vNF.
+~Figure\ref{fig:cppopeval} depicts two scenarios. In (A) we only rely on CP network to deliver the media while in (B) a single POP is added to the solution. Note that global bandwidth remains the same, as we took some bandwidth from the CP to allocate it to the POP.
+
+We can see that the cruising phase doesn't generate any SLA violation and the CP alone is able to handle the traffic load. However, when the peak occurs, SLA violations increase dramatically, causing a lot of requests to be dropped. In scenario B, however, the presence of the POP as an alternative, low latency data source, mitigate the peak effect and reduces up to 70\% of SLA violations to on the overall simulation period.
+
+Whaving a POP with lower network latency to serve highly redundant requests, benefits to both the user and the content provider. As the former sees an increase in QoS, the latter reduces cost by avoiding the over provisioning of network capabilities. It's important however to reserve POP bandwidth to serve only highly popular videos, so as to maximize its benefits, while keeping the mean latency low between clients and POPs by spreading POPs along the territory.
 
 
 
 
 \subsection{Simulation of provisionning decision} \label{provisionningdecisions}
 
-POP are designed to have great network performances for a given geographic area, and need to be spread throughout the territory for a reduced price.
+\begin{figure}
+	
+ \begin{center}
+    \includegraphics[width=0.45\textwidth]{fig/cachingStrat_evaluation.pdf}
+  \end{center}
+  \caption{ Caching Strategy Evaluation
+    \label{fig:cachingstrateval}
+  }
+\end{figure}	
+
+POP are designed to have great network performances for a given geographic area, and need to be spread throught the territory for a reduced price.
 In order to mitigate the storage cost, the caching controller takes the decision to provision as few videos as possible to fullfill the SLA. Several factor can influence the decision, like the transcoding time, the vNF booting time, hosting costs and so on.
 Taking the decision to provision a video in a specific POP means classifying the video as cachable according to some metadata, like the view count in a certain time window.
 In \cite{silvestre_boosting_2015}, the authors proposed a model for predicting the popularity of a video, and estimated that view counts accounted for 82\% of the relative importance. 
-We decided to evaluate the 
+We implemented a very simple provisionning policy, based on the number of requests for the same resource received in a 10 minutes rolling window. If the number is above the threshold, the video is cached at the POP level and clients can download the video from there.
 
-% Please add the following required packages to your document preamble:
+~Figure \ref{fig:cachingstrateval} shows that for our particular settings, the option that minimize the percentage of SLA violation is 4. This can be explained by the fact that we want to preserve the POP for serving only the most popular videos (which will trigger the most SLA violations) and not clutter it with less popular videos that could be easily served by the CP. However, as the propagation of the caching policy takes time, we want to react promptly and not wait for too many popular videos to hitting the CP.
+
+In production, this evaluation should be updated regularly by monitoring the overall traffic and the network conditions and possibly using other video metadata.
+
+
 
 
 

@@ -1,12 +1,3 @@
-
-Given all the advantages brought by the virtualization of the home environement, we should see a dramatic market swap.
-Even if field studies are currently conducted\footnote{Telefónica and NEC win innovation award for virtualized home gateway trials: http://tinyurl.com/o8cl3bv}, they focus mainly on emerging markets.
-For more mature markets, SPs balance those advantages with the necessity to dampen their past investments for their current infrastructure.
-There is also a technological risk in building VHG infrastructure at scale, especially in a deflationary market where investments need to take opportunistic pathes. 
-
-Focusing on the introduction of new services made possible by virtualization techniques has the advantage of not beeing too disturbing for the current infrastructure, while paving the way for a future migration to a full fledge virtual environment. Our proposal is to demonstrate that with the current infrastrusture, we can integrate NFV within the gateways to deploy new services easily.
-
-\subsection{The Surrogate vNF Concept}
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.45\textwidth]{fig/migrationPath.pdf}
@@ -28,6 +19,18 @@ Focusing on the introduction of new services made possible by virtualization tec
 \end{figure*}
 	   
 
+Given all the advantages brought by the virtualization of the home environment, we should see a dramatic market swap.
+Even if field studies are currently conducted\footnote{Telefónica and NEC win innovation award for virtualized home gateway trials: http://tinyurl.com/o8cl3bv}, they focus mainly on emerging markets.
+For more mature markets, SPs balance those advantages with the necessity to dampen their past investments made on their current infrastructures.
+There is also a technological risk in building VHG infrastructure at scale, especially in a deflationary market where investments need to take opportunistic pathes. 
+
+Focusing on the introduction of \textit{new services} made possible by virtualization techniques has the advantage of not beeing too disturbing for the current infrastructure, while paving the way for a future migration to a full fledge virtual environment. Our proposal is to demonstrate that with the current infrastrusture, we can integrate NFV within the gateways to deploy new services easily.
+
+\subsection{The Surrogate vNF Concept}
+
+
+
+
 
 We propose an alternative migration path where vNFs collaborate with modular gateways. We introduce the concept of \textit{Surrogate vNF} (SvNF) in Figure~\ref{fig:migration}. 
 A SvNF is an OSGi bundle that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF.
@@ -35,7 +38,7 @@ A SvNF is an OSGi bundle that acts like a regular module from the HG standpoint,
 The key role played by the SvNF+vNF couple in the migration path is that the vNF part is used on both the OSGi modular gateway scenario and on the L2 bridge scenario, allowing gradual migration of SP installed based while securing investments of the vNF. 
 
 SvNF modules leverage the existing OSGi lifecycle and resource provisionning mechanisms, but extend it also to network resources. SvNF modules are aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
-As shown in ~Figure\ref{fig:osgisvnf}, we extend the semantics of OSGi lifecycle by adding the capability to depend on network resources as well. SvNF modules register themselves on the runtime environement only if any suitable vNF is available in the network. The HG falls back to legacy mode and keep using the native service if the virtualized one is not available.
+As shown in ~Figure \ref{fig:osgisvnf}, we extend the semantics of OSGi lifecycle by adding the capability to depend on network resources as well. SvNF modules register themselves on the runtime environement only if any suitable vNF is available to them. The HG falls back to legacy mode and keep using the native implementation of the service if the virtualized one is not available.
 
 Using SvNF, SPs are able to push new services to every customers in an hybrid scenario where some customers go 100\% virtualized where it makes sense, while the others still run their legacy home gateways
 
@@ -56,21 +59,17 @@ To demonstrate the feasibility of a modular and NFV-ready HG, we realized a proo
 In order for this POC to be highly relevant, we had to consider the best possible Network Functions to be virtualised.
 We could have focused on core functions such as DHCP or NAT, which are challenging to virtualize at scale. However, virtualizing them doesn't illustrate how \textit{new services and features} could be rolled out easily on the gateway.
 
-We thus decided to highlight the advantages of our proposal by deploying a new type of SvNF+vNF related to video distribution that would improve the End-User's Quality of Experience related to video consumption and enhance network performances at the same time.
+We thus decided to highlight the advantages of our proposal by deploying a new type of SvNF+vNF related to multimedia that improves the End-User's Quality of Experience related to video consumption and enhance network performances at the same time.
 Such a function can be introduced into a modular OSGi HG and its execution would definitely be efficient as a vNF, due to the heavy video processing tasks it involves.
 It is expected that IP video traffic will reach almost 80\% of all consumer Internet traffic in 2018 \footnote{CISCO forecast white paper http://bit.ly/LVhmuL }, therefore it seems important to focus on how new solutions, such as NFV, could not only cope with this but especially enhance the delivery of such data.
 
-The use case considered consists of an End User $u$ consuming media from his Set-Top Box, linked to his HG $\SVNF_{u}$.
-
+The use case consists of an End User $u$ consuming media from his Set-Top Box, connected to his HG where the $\SVNF_{u}$ is running.
 Video streams of a VOD or IPTV service are transferred from the content provider distribution network \(\mathit{CP}_{\mathit{network}}\) (which may or may not include Content Delivery Networks - CDNs) to the TV and across $\SVNF_{u}$.
-
 Figure~\ref{fig:hld} depicts the design of the system and the use case steps. The figure presents the interactions between CP, SP and EU for a classical video streaming use case.
 In the original content distribution model, content is streamed from the content provider network  to the user gateway \(\SVNF_{u}\).
 
 Classic deployment scenario involve the use of content distribution network to offload the CP main server.
-CDN nodes are often collocated with internet exchange points (IXP) which present the advantage of being located relatively close of the EU.
-
-Our use case however, presents an alternative model where the content is cached in a regional point of presence managed by the SP (also called micro-data centers located at the edge of the network). The content delivered by a streaming vNF deployed in the POP.
+CDN nodes are often collocated with internet exchange points (IXP) which present the advantage of being located relatively close of the EU. Our use case however, presents an alternative model where the content is cached in a regional point of presence managed by the SP (also called micro-data centers located at the edge of the network). The content delivered by a streaming vNF deployed in the POP.
 
 The caching and encoding orchestrator  $\CEO$ maintains a list of provisioned of regional POPs \(\POP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ is deployed a set of Streaming vNF that serve content to users.
 
