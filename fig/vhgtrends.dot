@@ -12,7 +12,7 @@ subgraph cluster0{
 	fillcolor="#FFD1AA";
 	style="filled";
 	label="Today";
-mono [label="Monolithic HG\nfirmware based",shape = "box3d", fillcolor="#AA3939", style="filled"];
+mono [label="Monolithic HG\nfirmware based",shape = "box3d", fillcolor="#f3dbdb", style="filled"];
 
 }
 
@@ -20,8 +20,8 @@ subgraph cluster1{
 	fillcolor="#FFD1AA";
 	style="filled";
 	label="Tomorrow";
-modular[label="Modular HG\nHGI Vision",shape = "box3d", fillcolor="#AA3939", style="filled"];
-full[label="Fully vNF based hg\nL2 Bridge",shape = "box3d", fillcolor="#AA3939", style="filled"];
+modular[label="Modular HG\nHGI Vision",shape = "box3d", fillcolor="#f3dbdb", style="filled"];
+full[label="Fully vNF based hg\nL2 Bridge",shape = "box3d", fillcolor="#f3dbdb", style="filled"];
 }
 
 subgraph cluster2{
@@ -34,9 +34,9 @@ subgraph cluster2{
 		style="filled";
 		color="black";
 		label="Eurescom";
-		dslam [shape = "box", fillcolor="#226666", style="filled",label="DSLAM"];
-		standa [shape = "box", fillcolor="#226666", style="filled",label="Stand Alone Appliance"];
-		bng [shape = "box", fillcolor="#226666", style="filled",label="Border Network Gateway"];
+		dslam [shape = "box", fillcolor="#e1f5f5", style="filled",label="DSLAM"];
+		standa [shape = "box", fillcolor="#e1f5f5", style="filled",label="Stand Alone Appliance"];
+		bng [shape = "box", fillcolor="#e1f5f5", style="filled",label="Border Network Gateway"];
 	}
 	
 	subgraph cluster2_2{
@@ -44,7 +44,7 @@ subgraph cluster2{
 		style="filled";
 		color="black";
 		label="ETSI";
-		vnf [shape = "box", fillcolor="#226666", style="filled",label="vNF based services"];
+		vnf [shape = "box", fillcolor="#e1f5f5", style="filled",label="vNF based services"];
 	}
 	
 	subgraph cluster2_3{
@@ -52,7 +52,7 @@ subgraph cluster2{
 		style="filled";
 		color="black";
 		label="Cruz";
-		vhg [shape = "box", fillcolor="#226666", style="filled",label="Virtualized Home Gateway"];
+		vhg [shape = "box", fillcolor="#e1f5f5", style="filled",label="Virtualized Home Gateway"];
 	}
 }
 

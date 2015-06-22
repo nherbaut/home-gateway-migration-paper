@@ -17,7 +17,7 @@ bgcolor=transparent;
   subgraph cluster0{
 	  fillcolor="#FFD1AA";
 	  style="filled";
-  mono [shape = "box3d", fillcolor="#AA3939", style="filled",label="Firmware-based"];
+  mono [shape = "box3d", fillcolor="#f3dbdb", style="filled",label="Firmware-based"];
   label="Today : Monolithic HG";
   }
   
@@ -26,14 +26,14 @@ bgcolor=transparent;
 	  style="filled";
 	  	  
 	  
-  mod [shape = "box3d", fillcolor="#AA3939", style="filled",label="Modular and NFV-ready HG"];
+  mod [shape = "box3d", fillcolor="#f3dbdb", style="filled",label="Modular and NFV-ready HG"];
   label="Tomorrow: HGI and ETSI Compliant";
 		  subgraph cluster1_1{
 			  fillcolor="#88CC88";
 	  style="filled";
 			  rank=same;
-		  svnf1 [shape = "box", fillcolor="#226666", style="filled",label="SvNF"];
-		  svnf2 [shape = "box", fillcolor="#226666", style="filled",label="SvNF"];
+		  svnf1 [shape = "box", fillcolor="#e1f5f5", style="filled",label="SvNF"];
+		  svnf2 [shape = "box", fillcolor="#e1f5f5", style="filled",label="SvNF"];
 		   label="Surrogate vNF deployed on HG";
 		   
 		   
@@ -45,16 +45,16 @@ bgcolor=transparent;
   subgraph cluster2{
 	  fillcolor="#FFD1AA";
 	  style="filled";
-  full [shape = "box3d", fillcolor="#AA3939", style="filled",label="Fully NFV-based HG"];
+  full [shape = "box3d", fillcolor="#f3dbdb", style="filled",label="Fully NFV-based HG"];
   label="After Tomorrow: L2 Bridge";
   
   subgraph cluster2_2{
 	  fillcolor="#88CC88";
 	  style="filled";
 	  rank=same;
-	  vnf1 [shape = "box", fillcolor="#226666", style="filled",label="vNF"];
-	  vnf2 [shape = "box", fillcolor="#226666", style="filled",label="vNF"];
-      vnf3 [shape = "box", fillcolor="#226666", style="filled",label="vNF"];
+	  vnf1 [shape = "box", fillcolor="#e1f5f5", style="filled",label="vNF"];
+	  vnf2 [shape = "box", fillcolor="#e1f5f5", style="filled",label="vNF"];
+      vnf3 [shape = "box", fillcolor="#e1f5f5", style="filled",label="vNF"];
     
       }
       

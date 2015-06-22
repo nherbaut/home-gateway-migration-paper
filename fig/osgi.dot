@@ -12,13 +12,13 @@ sep=0.1;
  
   
   start [label = "Deploy SvNF \non the Gateway", shape="oval",  style="filled",fillcolor="black",fontcolor="white"];
-  installed [shape = "box3d", fillcolor="#AA3939", style="filled"];
-  uninstalled [shape = "box3d", fillcolor="#AA3939", style="filled"];
-  starting [shape = "box3d", fillcolor="#AA3939", style="filled"];
+  installed [shape = "box3d", fillcolor="#f3dbdb", style="filled"];
+  uninstalled [shape = "box3d", fillcolor="#f3dbdb", style="filled"];
+  starting [shape = "box3d", fillcolor="#f3dbdb", style="filled"];
   
-  stopping [shape = "box3d", fillcolor="#AA3939", style="filled",weight=5];
-  active [shape = "box3d", fillcolor="#226666", style="filled",weight=10];
-  resolved [shape = "box3d",fillcolor="#AA3939", style="filled"];
+  stopping [shape = "box3d", fillcolor="#f3dbdb", style="filled",weight=5];
+  active [shape = "box3d", fillcolor="#e1f5f5", style="filled",weight=10];
+  resolved [shape = "box3d",fillcolor="#f3dbdb", style="filled"];
   
   
   start -> installed [label = "",fontcolor="black",constraint=true,penwidth=2];
@@ -48,8 +48,8 @@ subgraph cluster0{
 		
 	}
 	subgraph cluster2{
- legacy [label = "Service on the Gateway", shape = "box3d", style=filled,fillcolor="#AA3939" ];
-  vNF [label = "Service on the vNF", shape = "box3d", fillcolor="#226666", style="filled", nodesep=0.05];
+ legacy [label = "Service on the Gateway", shape = "box3d", style=filled,fillcolor="#f3dbdb" ];
+  vNF [label = "Service on the vNF", shape = "box3d", fillcolor="#e1f5f5", style="filled", nodesep=0.05];
   }
 
  }
