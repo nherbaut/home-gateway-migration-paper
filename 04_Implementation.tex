@@ -20,23 +20,23 @@ Settings 4 & client connected to SvNF proxy hosted on the gateway with 10,000 ru
 	
 \end{table*}
 
-Section~\ref{sec:migrating} described the role of SvNF deployed on the HG and the server-side infrastructure composed of various vNF: Streamers deployed in POPS, Caching and Transcoding orchestrator and Transcoding vNF deployed in the core.
-As our proposal aims at showing how software deployed in a modular HG can play a role in a vNF architecture, our focus for the evaluation is devoted to assessing HG side performance, memory footprint and environment execution. We also used simulation to evaluate the benefits of this system, based on sensible hypotheses from a French Service Providers network.
-
+Section~\ref{sec:migrating} described the role of SvNF deployed on the HG and the server-side infrastructure composed of various vNFs: Streamers vNFs deployed in POPs, Caching and Transcoding Orchestrator and Transcoding vNFs deployed in regular data-centers.
+As our proposal aims at showing how software deployed in a modular HG can play a role in a vNF architecture, our first focus for the evaluation is devoted to assessing HG side performance, memory footprint and environment execution.
+Next, in order to evaluate the benefits of the overall SvNF+vNF system in abovecited use case, we made extensive simulations with hypothesis conforming exactly to the french network of Service Provider "Orange".
 
 \subsection{SvNF Evaluation }\label{Testbed}
 
-We deployed the SvNF OSGi bundle in the Apache Karaf OSGi runtime on an PC Engines APU/1C gateway running Debian Jessie. 
-The APU/1C gateway is built uppon a low-power AMD Bobcat microarchitecture, with 3 Gigabit Ethernet channels. The gateway connects the test operator and a PC file server.
+We deployed the SvNF OSGi bundle in the Apache Karaf OSGi runtime on an \textit{PC Engines APU/1C} gateway\footnote{http://www.pcengines.ch/apu1c.htm} running Debian Jessie. 
+The APU/1C gateway is built upon a low-power AMD Bobcat x86 microarchitecture and 2Gb or RAM, with 3 Gigabit Ethernet channels. Its raw performances are comparable to current Home Gateways models recently on the market\footnote{For example, FreeBox mini 4K's Brahma15 ARM7 processor scores 2 cores x \textbf{5.250Dmip} @ 1500 Mhz while APU/1C scores 2 cores x \textbf{2.560 Dmip} @ 1000 Mhz}, this assures the reproducibility of the results. The gateway connects the test operator and a PC-based file server.
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.30\textwidth]{fig/testbed.pdf}
-  \end{center}
-  \caption{ SvNF Performances testbed
-    \label{fig:testbed}
-  }
-\end{figure}	
+%\begin{figure}
+%  \begin{center}
+%    \includegraphics[width=0.30\textwidth]{fig/testbed.pdf}
+%  \end{center}
+%  \caption{ SvNF Performances testbed
+%    \label{fig:testbed}
+%  }
+%\end{figure}	
 
 
 \begin{figure*}
@@ -55,27 +55,28 @@ The APU/1C gateway is built uppon a low-power AMD Bobcat microarchitecture, with
 
 
 JMeter\footnote{http://jmeter.apache.org} was used to capture the network metrics of our solution.
-It allowed us to create agents and make them perform standard HTTP queries and report on specific performances metrics. Each experiment consisted of 10 agents continuously downloading target resources on the HTTP file server, 10000 times.
+It allowed us to create agents and make them perform standard HTTP queries, as well as report on specific performances metrics. Each experiment consisted of 10 agents continuously downloading target resources on the HTTP file server, 10000 times.
 
-We considered two different validation usecase: Web Traffic and File Transfer. First, the agents were to download a 192 Mb video file, then a single HTML page which linked to 171 static resources composed of Javascript files, CSS and images of average size 16 kb.
+We considered two different validation use-case: Web Traffic and File Transfer. First, the agents had to download a 192 MB video file, then a single HTML page which linked to 171 static resources composed of Javascript files, CSS and images of average size 16 KB.
 
-We evaluated our solution with two different rules settings deployed in the SvNF. In the first one, we didn't deploy any rule, assessing only the overhead linked to the application network framework. In the second one however, we deployed 10.000 rules, causing the SvNF to process both requests and responses wrt those rules thereby assessing its ability to perform pattern matching in a timely manner. Both cases reflect the no operation scenario presented in ~section \ref{noop}.
+We evaluated our solution with two different rules settings deployed in the SvNF. In the first one, we did not deploy any rule, assessing only the overhead linked to the application network framework. In the second one, however, we deployed 10.000 rules, causing the SvNF to process both requests and responses wrt those rules thereby assessing its ability to perform pattern matching in a timely manner. Both cases reflect the no operation scenario of our use-case, as  presented in ~section \ref{noop}.
 
-We decided to assess the overhead caused the SvNF by comparing it to the well-known Squid3 HTTP proxy. To have a better grasp of the amont of resources consumed by the SvNF, we also reported CPU and memory consumption for each settings as well.
+We decided to assess the overhead caused the SvNF by comparing it to the well-known Squid3 HTTP proxy. To have a better grasp of the amount of resources consumed by the SvNF, we also reported CPU and memory consumption for each settings as well.
 
-From ~Table \ref{tab:perf-comparison} we can see that the performances in term of throughput is globally the same across all settings, with the maximum deviation from the baseline settings 1 being less that 0.3\%.
-In settings 2-4, we also see that a significant share of CPU power is dedicated to processing the resquests for both Squid3 and the SvNF, with the SvNF consuming up to a 25\% extra CPU time, but with no drop in performances. This can be explained by the fact that the SvNF runs on top of a JVM, while Squid is a native application.
+From ~Table \ref{tab:perf-comparison}, we can see that the performances in term of throughput is globally the same across all settings, with the maximum deviation from the baseline setting 1 (simple ip forwarding) being less that 0.3\%.
+In settings 2-4, we also see that a significant share of CPU power is dedicated to processing the resquests for both Squid3 and the SvNF, with the SvNF consuming up to a 25\% extra CPU time in Settings 4 wrt Settings 1, but with no drop in throughput. This can be explained by the fact that the SvNF runs on top of a JVM, while Squid is a native application with limited overhead wrt a Java application.
 
-As this experiment doesn't intend to mimic real life internet usages but to stress the system up the its limits, we conclude that even with the extra CPU involved, our solution doesn't significatively penalize the end user, validating that SvNF can be deployed on modular Home Gateways.
+As this experiment does not intend to mimic real life internet usages but to stress the system up its limits.
+We conclude that even with the extra CPU involved, our solution does not significantly penalize the End-User, validating the possible deployment of SvNFs on modular Home Gateways.
 
-\subsection{Simulation of Video Delivery} \label{videodelivery}
+\subsection{Performance study of Content Distribution} \label{videodelivery}
 \begin{table}
 	\scalebox{0.8}{
 		\begin{tabular}{| l | l | l|}
 		\hline
 			\textbf{Settings} & \textbf{Scenario A} & \textbf{Scenario B}\\\hline
-			CP Bandwidth &1 Gbps&2 Gbps\\\hline
-			POP Bandwidth &0	 Gbps&1 Gbps\\\hline
+			CP Bandwidth &2 Gbps&1 Gbps\\\hline
+			POP Bandwidth &0 Gbps&1 Gbps\\\hline
 			POP latency& \multicolumn{2}{l|}{25ms} \\\hline
 			CP latency& \multicolumn{2}{l|}{50ms} \\\hline
 			Video Distribution& \multicolumn{2}{l|}{Normal} \\\hline
@@ -90,22 +91,26 @@ As this experiment doesn't intend to mimic real life internet usages but to stre
 	}
 	\caption{Hypothesis used for simulation\label{simu1}}
 \end{table}
-We simulated the network deployement presented in ~Figure \ref{fig:hld}, with the specifications presented in ~Table \ref{simu1} with NS3.
+We simulated the network deployment presented in ~Figure \ref{fig:hld}, with the specifications presented in ~Table \ref{simu1}.
 
-We aimed at understanding the benefits for having a POP dynamically provisionning user-requested video. 
-The POP beeing located near the user, its latency is reduced wrt the CP network (backed by CDN), hence a possible higher throughput for HTTP traffic like video streaming.
-For our simulation, we included two types of patterns. The first one is composed of video requests emmited regularly by the clients, which generate a cruising phase traffic. We also included another source of traffic at \textit{25s} which is caraterized by a greater request arrival rate as well as a more concentrated distribution of videos. Consumption peaks usually occur when a viral video is posted, most of the time on the landing page of the content provider. Beeing able to cache this kind of video and to serve them as close as possible to the users is a key indicator of success for the vNF.
+The objective is first to assess the feasibility of having a SvNF+vNF approach and second to highlight its benefits. 
+The use case considers the deployment of SvNF in the HG and vNF in the SP's POPs, for video delivery.
+Let us thus investigate the potential of such a solution.
 
-~Figure\ref{fig:cppopeval} depicts two scenarios. In (A) we only rely on CP network to deliver the media while in (B) a single POP is added to the solution. Note that global bandwidth remains the same, as we took some bandwidth from the CP to allocate it to the POP.
+Streamed video need good bitrate to avoid rebuffering and improve QoE. That is the reason why we defined an SLA violation as the failure to deliver the proper average bitrate on time to a client. Our goal in this simulation is to reduce the SLA violations over time.
 
-We can see that the cruising phase doesn't generate any SLA violation and the CP alone is able to handle the traffic load. However, when the peak occurs, SLA violations increase dramatically, causing a lot of requests to be dropped. In scenario B, however, the presence of the POP as an alternative, low latency data source, mitigate the peak effect and reduces up to 70\% of SLA violations to on the overall simulation period.
+The POP being located near the End-User, its latency is reduced wrt the CP network (backed by CDN), hence a possible higher throughput for HTTP traffic like video streaming.
+For our simulation, we included two types of patterns. The first one is composed of video requests emitted regularly by the clients, which generate a cruising phase traffic. The second consists of traffic at \textit{25s} which is caraterized by a greater request arrival rate as well as a more concentrated distribution of videos. Consumption peaks usually occur when a viral video is posted, most of the time on the landing page of the Content Provider. Being able to cache this kind of video and to serve it as close as possible to the users is a key indicator of success for the vNF.
 
-Whaving a POP with lower network latency to serve highly redundant requests, benefits to both the user and the content provider. As the former sees an increase in QoS, the latter reduces cost by avoiding the over provisioning of network capabilities. It's important however to reserve POP bandwidth to serve only highly popular videos, so as to maximize its benefits, while keeping the mean latency low between clients and POPs by spreading POPs along the territory.
+~Figure\ref{fig:cppopeval} depicts two scenarios. In (A), we only rely on CP network to deliver the media while in (B) a single POP is added to the solution. 
+Note that global bandwidth remains the same, as we took some bandwidth from the CP to allocate it to the POP.
+This is also essential for the CP for comparing at the end the solutions in terms of bandwidth cost.
 
+We can see that the cruising phase does not generate any SLA violation and the CP alone is able to handle the traffic load. However, when the peak occurs, SLA violations increase dramatically, causing a lot of requests to be dropped. In scenario B, however, the presence of the POP as an alternative, low latency data source, mitigate the peak effect and reduces up to 70\% of SLA violations to on the overall simulation period.
 
+Whaving a POP with lower network latency to serve highly redundant requests, benefits to both the user and the content provider. As the former sees an increase in QoE, the latter reduces cost by avoiding the over provisioning of network capabilities. It's important however, to reserve POP bandwidth to serve only highly popular videos, so as to maximize its benefits, while keeping the mean latency low between clients and POPs by spreading POPs along the territory.
 
-
-\subsection{Simulation of provisionning decision} \label{provisionningdecisions}
+\subsection{Performance study of provisionning decisions} \label{provisionningdecisions}
 
 \begin{figure}
 	
@@ -117,13 +122,13 @@ Whaving a POP with lower network latency to serve highly redundant requests, ben
   }
 \end{figure}	
 
-POP are designed to have great network performances for a given geographic area, and need to be spread throught the territory for a reduced price.
+POPs are designed to have great network performances, and need to be distributed throught the territory for a reduced price.
 In order to mitigate the storage cost, the caching controller takes the decision to provision as few videos as possible to fullfill the SLA. Several factor can influence the decision, like the transcoding time, the vNF booting time, hosting costs and so on.
 Taking the decision to provision a video in a specific POP means classifying the video as cachable according to some metadata, like the view count in a certain time window.
 In \cite{silvestre_boosting_2015}, the authors proposed a model for predicting the popularity of a video, and estimated that view counts accounted for 82\% of the relative importance. 
 We implemented a very simple provisionning policy, based on the number of requests for the same resource received in a 10 minutes rolling window. If the number is above the threshold, the video is cached at the POP level and clients can download the video from there.
 
-~Figure \ref{fig:cachingstrateval} shows that for our particular settings, the option that minimize the percentage of SLA violation is 4. This can be explained by the fact that we want to preserve the POP for serving only the most popular videos (which will trigger the most SLA violations) and not clutter it with less popular videos that could be easily served by the CP. However, as the propagation of the caching policy takes time, we want to react promptly and not wait for too many popular videos to hitting the CP.
+~Figure \ref{fig:cachingstrateval} shows that for our particular settings, the value that minimize the percentage of SLA violation is 4. This can be explained by the fact that we want to preserve the POP for serving only the most popular videos (which will trigger the most SLA violations) and not clutter it with less popular videos that could be easily served by the CP. However, as the propagation of the caching policy takes time, we want to react promptly and not wait for too many popular videos to hit the CP.
 
 In production, this evaluation should be updated regularly by monitoring the overall traffic and the network conditions and possibly using other video metadata.
 
