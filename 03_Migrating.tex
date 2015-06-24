@@ -188,7 +188,7 @@ For example, targeted ads can be added to the video by the SP with a view to inc
 The fact that we are able to transform the content directly into the network is a big advantage in term of flexibility and convenience of administration for CP and SP.
 
 One other striking features of NFV is its ability to dynamically provision network functions according to simple business requirements expressed as Service Layer Agreements (SLA).
-To fine-tune orchestration policy of the system, SP could set a target of 10Mps in the 7pm-10pm time slot for its user toward a specific VOD website.
+To fine-tune orchestration policy of the system, Service Providers could set a target of 10Mps in the 7pm-10pm time slot for its user toward a specific VOD website.
 Once the vNF is configured with those targets, Caching and Transcoding Orchestrator has to do its best to respect the SLA by using NFV infrastructure metrics (CPU, IO, Memory) but also specific application metrics.
 Thanks to the key roles played by the HG, our solution offers the possibility to collect metrics at the user level and hence using a Collective Intelligence approach to optimize system operation according to SLA targets. 
 
@@ -197,5 +197,5 @@ The system gathers data which reflect video consumption patterns on a per-user b
 Let's imagine a particular user watch HBO's Game of Thrones every Sunday evening on his Ipad which support Apple's HTTP Live Streaming (HLS) on a T1 connection.
 If this pattern is widespread amongst users, the Caching and Transcoding Orchestrator can assign a higher priority on the transcoding of the HD HLS version of the popular TV show and assuring the correct provisionning on selected regional POPs.
 
-This approach allows CP to broadcast its content in cooperation with SP NVF network with limited technical interaction.
-Indeed, expressing contractual SLA target is enough for the CP to deploy its content, as the SP's vNF becomes responsible for determining (1) which content to cache (2) which enhancements to bring to the content and (3) where to cache the content.
+This approach allows CP to broadcast its content in cooperation with Service Providers NVF network with limited technical interaction.
+Indeed, expressing contractual SLA target is enough for the CP to deploy its content, as the Service Providers' vNF becomes responsible for determining (1) which content to cache (2) which enhancements to bring to the content and (3) where to cache the content.
