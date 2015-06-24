@@ -19,12 +19,12 @@
 \end{figure*}
 	   
 
-Given all the advantages brought by the virtualization of the home environment, we should see a dramatic market swap.
+Given all the advantages brought by the virtualisation of the home environment, we should see a dramatic market swap.
 Even if field studies are currently conducted\footnote{Telefónica and NEC win innovation award for virtualized home gateway trials: http://tinyurl.com/o8cl3bv}, they focus mainly on emerging markets.
 For more mature markets, SPs balance those advantages with the necessity to dampen their past investments made on their current infrastructures.
 There is also a technological risk in building VHG infrastructure at scale, especially in a deflationary market where investments need to take opportunistic pathes. 
 
-Focusing on the introduction of \textit{new services} made possible by virtualization techniques has the advantage of not beeing too disturbing for the current infrastructure, while paving the way for a future migration to a full fledge virtual environment. Our proposal is to demonstrate that with the current infrastrusture, we can integrate NFV within the gateways to deploy new services easily.
+Focusing on the introduction of \textit{new services} made possible by virtualisation techniques has the advantage of not beeing too disturbing for the current infrastructure, while paving the way for a future migration to a full fledge virtual environment. Our proposal is to demonstrate that with the current infrastrusture, we can integrate NFV within the gateways to deploy new services easily.
 
 \subsection{The Surrogate vNF Concept}
 
@@ -65,11 +65,11 @@ Such a function can be introduced into a modular OSGi HG and its execution would
 
 The use case consists of an End User $u$ consuming media from his Set-Top Box, connected to his HG where the $\SVNF_{u}$ is running.
 Video streams of a VOD or IPTV service are transferred from the content provider distribution network \(\mathit{CP}_{\mathit{network}}\) (which may or may not include Content Delivery Networks - CDNs) to the TV and across $\SVNF_{u}$.
-Figure~\ref{fig:hld} depicts the design of the system and the use case steps. The figure presents the interactions between CP, SP and EU for a classical video streaming use case.
+Figure~\ref{fig:hld} depicts the design of the system and the use case steps. The figure presents the interactions between CP, SP and End-User for a classical video streaming use case.
 In the original content distribution model, content is streamed from the content provider network  to the user gateway \(\SVNF_{u}\).
 
 Classic deployment scenario involve the use of content distribution network to offload the CP main server.
-CDN nodes are often collocated with internet exchange points (IXP) which present the advantage of being located relatively close of the EU. Our use case however, presents an alternative model where the content is cached in a regional point of presence managed by the SP (also called micro-data centers located at the edge of the network). The content delivered by a streaming vNF deployed in the POP.
+CDN nodes are often collocated with internet exchange points (IXP) which present the advantage of being located relatively close of the End-User. Our use case however, presents an alternative model where the content is cached in a regional point of presence managed by the SP (also called micro-data centers located at the edge of the network). The content delivered by a streaming vNF deployed in the POP.
 
 The caching and encoding orchestrator  $\CEO$ maintains a list of provisioned of regional POPs \(\POP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ is deployed a set of Streaming vNF that serve content to users.
 

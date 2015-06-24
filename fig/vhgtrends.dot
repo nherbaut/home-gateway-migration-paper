@@ -27,7 +27,7 @@ full[label="Fully vNF based hg\nL2 Bridge",shape = "box3d", fillcolor="#f3dbdb",
 subgraph cluster2{
 	
 		color="white";
-		label="Proposed Solutions for \nHome Environment Virtualization";
+		label="Proposed Solutions for \nHome Environment Virtualisation";
 	
 	subgraph cluster2_1{
 		fillcolor="#88CC88";
