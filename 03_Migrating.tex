@@ -64,6 +64,7 @@ In the original content distribution model, content is streamed from the content
 
 Classic deployment scenario involves the use of Content Distribution Network (CDN) to offload the CP main server.
 CDN nodes are often collocated with Internet Exchange Points (IXP) which present the advantage of being located relatively close to the End-User. Our use case, however, introduces an alternative model where the content is cached in a regional Point Of Presence (POP) managed by the SP (also called micro-data centers located at the edge of the network). The HG and the PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently. In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional POP to the End-User SvNFu, as depicted in Figure~\ref{fig:osgisvnf}.
+The idea of operator-owned Distribution Network is described in \cite{spagna_design_2013} and extends traditional CDNs by distributing cache servers close to user.
 
 The Caching and Transcoding Orchestrator  $\CEO$ maintains a list of provisioned regional POPs \(\POP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ a set of Streaming vNFs serves content to End-Users.
 
