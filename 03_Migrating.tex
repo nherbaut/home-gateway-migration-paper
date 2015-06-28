@@ -30,7 +30,9 @@ Our objective is to demonstrate that in the current infrastrusture, we can integ
 \subsection{The Surrogate vNF Concept}
 
 Our approach resides in the proposal of an alternative migration path where vNFs collaborate with modular gateways in the short/mid-term, and thus technically preparing the long-term migration towards a fully NFV-based HG, as shown in Figure~\ref{fig:migration}. We introduce the concept of \textit{Surrogate vNF} (SvNF) in  
-A SvNF is an OSGi bundle that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF operating in a standard ETSI compliant Virtual Network Function architecture.
+A SvNF is an OSGi bundle that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF operating in a standard ETSI compliant Virtual Network Function architecture. 
+Given the limited capabilities of Home Gateways, the features they can handle are control plane ones and very basic data plane ones.
+For example, in a Parental Control use-case, the SvNF could be installed on the gateway and redirect traffic to a Virtual Traffic Classifier vNF, deployed in the Service Provider Cloud, configured to operate a complex security scheme \cite{basile_novel_2015}. It also could enforce the first line of defence according to rules deployed by the vNF on the SvNF.
 
 The key role played by the SvNF+vNF couple in the migration path is that the vNF part is used on both the OSGi modular gateway scenario and on the L2 bridge scenario, allowing gradual migration of SP current customers' equipement while securing investments of the vNF. 
 
