@@ -18,11 +18,9 @@ A complete system update by the Service Providers is necessary to deploy new fea
 GNU/Linux is also used as a platform of choice for Home Gateways \cite{royon_multiservice_2007}.
 The solution is considered stable, tested and allows reusing well-known applications for networking, among others.
 After Linksys (a router vendor who published its GNU/Linux based firmware designed for its WRT54G product line in 2003), a lot of efforts have been made to maintain and improve embedded GNU/Linux firmware distribution over a wide variety of platforms.
-
 A notable example is the OpenWrt\footnote{https://openwrt.org/} project which has been partly sponsored among others by Comcast, through the Open Home Gateway Forum.
 %It has helped researchers to add new features to commodity routers by replacing the firmware with a real GNU/Linux OS along with a file system and a package management tool.
 %In addition of being able to deploy new packaged programs, developers can also use OpenWrt to write their own applications and deploy them in production.
-
 
 Modularity can be achieved within the GNU/Linux platform.
 The large application catalog available, usually benefits from low memory consumption and low IO footprint.
@@ -46,10 +44,10 @@ For HGI, the goal for OSGi is to allow the installation, update, removal, start 
 
 A new trend in CPE design has emerged conjointly with the availability of alternative open source OSes like Android\footnote{among others Bbox Miami, Free box mini 4K are built with Android TV OS}.
 Rich of hundred thousands third party applications, they bring directly to the End-User the possibility of installing additional software to enrich the user experience.
-Another advantage for this model is that End-Users are already familiar with the concept of application store, and their willingness to pay extra for services and applications has risen with the smart phone era.
-For the Internet Service Providers, the advantage is the great professional support available for those OSes, easing maintenance and support and also the possibility to agree on revenue sharing\footnote{http://www.bloomberg.com/news/articles/2014-10-02/orange-agrees-to-distribute-netflix-video-service-in-france} with over the top (OTT) content providers like Netflix or Canal+.
+%Another advantage for this model is that End-Users are already familiar with the concept of application store, and their willingness to pay extra for services and applications has risen with the smart phone era.
+%For the Internet Service Providers, the advantage is the great professional support available for those OSes, easing maintenance and support and also the possibility to agree on revenue sharing\footnote{http://www.bloomberg.com/news/articles/2014-10-02/orange-agrees-to-distribute-netflix-video-service-in-france} with over the top (OTT) content providers like Netflix or Canal+.
 
-Even if Android comes from the smart phone world, the platform has a good support for Service Oriented Programming, with native concepts of the service abstraction, sand boxing and built-in security. Multi-vendor services and applications can be installed and their life cycle supports the most common traits of a service bundle with the help of the built-in Task Scheduler.
+Even if Android comes from the smart phone world, the platform has a good support for Service Oriented Programming \cite{bieber2001introduction}, with native concepts of the service abstraction, sand boxing and built-in security. Multi-vendor services and applications can be installed and their life cycle supports the most common traits of a service bundle with the help of the built-in Task Scheduler.
 
 \subsection{Home Gateway Virtualization}
 Given the heterogeneity of the last kilometer network and the multiplicity of network devices, proposing new architecture is a challenging task.
@@ -61,7 +59,7 @@ In the study, Software Defined Network (SDN) \cite{kim_improving_2013} is also p
 By proposing a software architecture related to the HGI proposal to deploy network function in a modularized fashion, they suggest the principle of NFV architecture.
 Finally,  it concludes that current Broadband Forum standards allow support of vHG, event if the architecture is not yet completely understood.
 
-Additionaly, in \cite{da_silva_home_2011} authors qualitatively compare several architectures for HG virtualization (which in this case is merely layer-2 based home and access network with Plug and Play capabilities), explaining that it could be achieved by centralizing the virtual routing network function (specially NAT) in the Broadband Remote Access server. However this method requires significant changes in the SP access network.
+Additionally, in \cite{da_silva_home_2011} authors qualitatively compare several architectures for HG virtualization (which in this case is merely layer-2 based home and access network with Plug and Play capabilities), explaining that it could be achieved by centralizing the virtual routing network function (specially NAT) in the Broadband Remote Access server. However this method requires significant changes in the SP access network.
 
 Another work performed by Cruz et al. in \cite{cruz_architecture_2013} demonstrates a proposal built upon two reference frameworks from the Broadband forum (TR-101 and TR-156), which shows vHG being deployed in SP datacenter as embedded GNU/Linux virtual machines managed by the CWMP protocol to simplify management on the SP side. This approach however leaves open the issue of multi-provider services and the integration of software from different stakeholders into the Home Gateway execution environment.
 
