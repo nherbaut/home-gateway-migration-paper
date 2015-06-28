@@ -23,7 +23,7 @@ Our objective is to demonstrate that in the current infrastructure, we can integ
 
 We propose an alternative migration path where vNFs collaborate with modular gateways in the short/mid-term, and thus technically preparing the long-term migration towards a fully NFV-based HG, as shown in Figure~\ref{fig:migration}.
 A SvNF is an OSGi bundle (or a \textit{Service Module} in HGI terminology) that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF operating in a standard ETSI compliant Virtual Network Function architecture. 
-Given the limited capabilities of Home Gateways, the features they can handle are control-plane ones and very basic data-plane ones.
+Given the limited capabilities of Home Gateways, the features they can handle are control-plane and very basic data-plane ones.
 For example, in a Parental Control use-case, the SvNF could be installed on the gateway and redirect traffic to a virtual Security Appliance, deployed as a vNF configured to operate a complex security scheme \cite{basile_novel_2015}. It also could enforce the first line of defense according to rules deployed by the vNF on the SvNF.
 
 The key role played by the SvNF+vNF couple in the migration path is that the vNF part is used on both the OSGi Modular Gateway Scenario and on the L2 bridge scenario, allowing gradual migration of SP current customers' equipment while securing investments of the vNF. 
@@ -67,14 +67,14 @@ CDN nodes are often collocated with Internet Exchange Points (IXP) which present
 
 In the  current deployment model for NFV, it is anticipated that datacenters (at various capacities) are deployed in selected places within the Telco operator’s network infrastructure (usually at the edges of the Telco infrastructure footprint) capable of providing IT resource virtualization for the deployment of VNFs. These places are called Network Function Virtualization Infrastructure Point of Presence (NFVI-PoP). These deployments support both network and IT resource virtualization. The trend of using small scale datacenters i.e. micro-datacenters or even smaller, provides the opportunity to make available NFV infrastructures closer to the end-users and for smaller groups, enhancing the network usage efficiency via a regional PoP.
 
-The HG and the regional PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently. In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional PoP to the End-User SvNF, as depicted in Figure~\ref{fig:osgisvnf}.
+The HG and the regional PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently. In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional PoP to the End-User SvNF.
 The idea of operator-owned Distribution Network is described in \cite{spagna_design_2013} and extends traditional CDNs by distributing cache servers close to user.
 
 The Caching and Transcoding Orchestrator  $\CEO$ maintains a list of provisioned regional PoPs \(\PoP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ a set of Streaming vNFs serves content to End-Users.
 
 The $\CEO$ also manages Home Gateways configuration. It pushes a set of rules \(R_{u}=\{r^{u}_{1},r^{u}_{2},...,r^{u}_{n}\}\) on the $\SVNF_{u}$. 
 Those rules are used to filter requests and responses crossing $\SVNF_{u}$ in order to notify the $\CEO$ that a video has been requested.
-It also pushes a list of cached resources available to $\SVNF_{u}$ through the regional PoPS $C_{u}=\{c^{i,u}_{j} \}$ where $j$ is the identifier of the resource and $i$ the identifier of the regional PoP $p_{i}$ from which it can be retrieved. In our use case, resources consist of video files hosted on a Video on Demand Server, and streamed over HTTP.
+$\CEO$ also pushes a list of cached resources available to $\SVNF_{u}$ through the regional PoPS $C_{u}=\{c^{i,u}_{j} \}$ where $j$ is the identifier of the resource and $i$ the identifier of the regional PoP $p_{i}$ from which it can be retrieved. In our use case, resources consist of video files hosted on a Video on Demand Server, and streamed over HTTP.
 
 The SvNF module deployed on the HG works is a dynamically configurable HTTP proxy.
 When it receives a request from a client or a response from a server, it analyses it using the set of rules \(R_{u}\) and the set of cached resource $C_{u}$ deployed on the HG.
@@ -124,7 +124,7 @@ This is the common case, as it is performed today. The SvNF deployed on the HG d
 In this case, the SvNF creates an overhead on the gateway without bringing additional value to the End-User.
 This overhead is evaluated in ~Section \ref{Testbed} in order to know if it would penalize the user experience (and in which extent).
 
-Before considering Scenario 2 and 3, where the SvNF+vNF couple is effectively used, we need to take a step back and describe the business aspects involved. At this point, we consider that the Content Provider contacted with the Service Provider to let its video content delivery being handled. On top of simply caching videos in regional PoPs, vNFs have different techniques available to optimize End-User QoS, like reducing video bitrate, upgrading the video compression standard, using HTTP Adaptive Streaming and so on.
+Before considering Scenario 2 and 3, where the SvNF+vNF couple is effectively used, we need to take a step back and describe the business aspects involved. At this point, we consider that the Content Provider contacted with the Service Provider to let its video content delivery being handled. On top of simply caching videos in regional PoPs, Transcoding vNFs have different techniques available to optimize End-User QoS, like reducing video bitrate, upgrading the video compression standard, using HTTP Adaptive Streaming and so on.
 
 \subsubsection*{Scenario 2: Cache hit scenario}
 
@@ -155,7 +155,7 @@ In this scenario, the resource targeted by the user matches the Rules, but it is
 \STATE User $u$ requests a resource
 \STATE $\SVNF_{u}$ receives request $\mathit{Req}$ from $u$
 \STATE \( \sum_{c^{i,u}_{j}\in C_{u}}{\mathbb{1}_{c^{i,u}_{j}}(\mathit{Req})} = 0 \)
-\STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Req})} > 0  \)
+\STATE \( \sum_{r^{u}_{i}\in R_{u}}{\mathbb{1}_{r_{i}}(\mathit{Req})} = M_{req}  \)
 \IF { $M_{req}>0$}
 \STATE $\SVNF_{u}$ informs $\CEO$ that $u$ requested $\mathit{Req}$
 \ENDIF
@@ -175,9 +175,8 @@ In this scenario, the resource targeted by the user matches the Rules, but it is
 Here, $\CEO$ is informed that a cache request has not been fulfilled. According to its provisioning algorithm, it can decide to deploy the resource corresponding to $\mathit{Req}$ in a $p_{i}$ either by transcoding the original file from \(\mathit{CP}_{\mathit{network}}\) to a $p_{i}$ or by re-provisioning $c^{k,u}_{j}$ to $p_{i}$.
 If a modification has been operated on the PoPS, $\CEO$ will update the Home Gateway cache tables.
 
-The Caching and Transcoding Orchestrator takes the decision to perform caching and transcoding on the content based on several criteria ranging from Context and User Intelligence \cite{wang_cpcdn:_2015}, to business negotiation between CP and SP.
-However, this decision process is not in the scope of this paper and will be studied in further work. 
-We simulated this third scenario and detailed the results in ~Section\ref{provisionningdecisions}.
+The Caching and Transcoding Orchestrator takes the decision to perform caching and transcoding on a content based on several criteria ranging from Context and User Intelligence \cite{wang_cpcdn:_2015}, to business negotiation between CP and SP.
+This decision process is not in the scope of this paper and will be studied in further work. However, we simulated a very simple one and detailed the results in Section~\ref{provisionningdecisions}.
 
 %\subsection{In-network processing benefits for CP and SP}
 %The NFV approach allows us to process data directly in the network.
