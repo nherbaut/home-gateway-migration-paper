@@ -1,12 +1,14 @@
 
 
-%\begin{figure}
-%	\center
-%	\includegraphics[width=0.30\textwidth]{fig/osgi.pdf}
-%	\caption{ Supporting SvNF operation using standard OSGi life cycle.
-%    \label{fig:osgisvnf}
-%    }
-%\end{figure}
+\begin{figure}
+	
+	\center
+
+	\includegraphics[width=0.30\textwidth]{fig/osgi.pdf}
+	\caption{ Supporting SvNF operation using standard OSGi life cycle.
+    \label{fig:osgisvnf}
+    }
+\end{figure}
 	   
 
 %Given all the advantages brought by the virtualization of the home environment, we should see a dramatic market swap  happening in the coming years.
@@ -26,15 +28,23 @@ For example, in a Parental Control use-case, the SvNF could be installed on the 
 
 The key role played by the SvNF+vNF couple in the migration path is that the vNF part is used on both the OSGi Modular Gateway Scenario and on the L2 bridge scenario, allowing gradual migration of SP current customers' equipment while securing investments of the vNF. 
 
-%SvNF modules leverage the existing OSGi life cycle and resource provisioning mechanisms, while at the same time extending them also to network resources. SvNF modules are aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment provided that they are supported by the underlying network.
-%As shown in ~Figure \ref{fig:osgisvnf}, we extend the semantics of OSGi life cycle by adding the capability to depend on network resources as well. SvNF modules register themselves on the runtime environment only if any suitable vNF is available to them. The HG falls back to legacy mode and keeps using the native implementation of the service if the virtualized one is not available.
-
+SvNF modules leverage the existing OSGi life cycle and resource provisioning mechanisms, while at the same time extending them also to network resources as shown in Figure~\ref{fig:osgisvnf}. SvNF modules are aware of SP network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment only if they are supported by the underlying network.
+%As shown in Figure~\ref{fig:osgisvnf}, we extend the semantics of OSGi life cycle by adding the capability to depend on network resources as well. SvNF modules register themselves on the runtime environment only if any suitable vNF is available to them.
+The HG falls back to legacy mode and keeps using the native implementation of the service if the virtualized one is not available.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{fig/migrationPath.pdf}
+  \end{center}
+  \caption{ Migration path from Modular to Virtual HG.
+    \label{fig:migration}
+  }
+\end{figure}	
 Using SvNF, SPs are able to push new services to every customers in an hybrid mode where some customers go 100\% virtualized (where it makes sense), while the others still run their legacy home gateways
  
 \subsection{Feasibility: application to video delivery}
 \begin{figure*}
 	\center
-	\includegraphics[width=0.90\textwidth,natwidth=8132,natheight=4335]{fig/highleveldesign.png}
+	\includegraphics[width=0.75\textwidth]{fig/highleveldesign.png}
 	\caption{ High Level Design of the SvNF+vNF proposed Solution for Content Distribution
     \label{fig:hld}
     }
@@ -57,8 +67,7 @@ CDN nodes are often collocated with Internet Exchange Points (IXP) which present
 
 In the  current deployment model for NFV, it is anticipated that datacenters (at various capacities) are deployed in selected places within the Telco operator’s network infrastructure (usually at the edges of the Telco infrastructure footprint) capable of providing IT resource virtualization for the deployment of VNFs. These places are called Network Function Virtualization Infrastructure Point of Presence (NFVI-PoP). These deployments support both network and IT resource virtualization. The trend of using small scale datacenters i.e. micro-datacenters or even smaller, provides the opportunity to make available NFV infrastructures closer to the end-users and for smaller groups, enhancing the network usage efficiency via a regional PoP.
 
-The HG and the regional PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently.
-In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional PoP to the End-User SvNF.%, as depicted in Figure~\ref{fig:osgisvnf}.
+The HG and the regional PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently. In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional PoP to the End-User SvNF, as depicted in Figure~\ref{fig:osgisvnf}.
 The idea of operator-owned Distribution Network is described in \cite{spagna_design_2013} and extends traditional CDNs by distributing cache servers close to user.
 
 The Caching and Transcoding Orchestrator  $\CEO$ maintains a list of provisioned regional PoPs \(\PoP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ a set of Streaming vNFs serves content to End-Users.

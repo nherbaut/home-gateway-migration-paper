@@ -40,16 +40,6 @@ The APU/1C gateway is built upon a low-power AMD Bobcat x86 microarchitecture an
 %\end{figure}	
 
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.45\textwidth]{fig/CP+POP_evaluation.pdf}
-  \end{center}
-  \caption{ Evaluation of the benefits of the SvNF+vNF system
-    \label{fig:cppopeval}
-  }
-\end{figure}	
-
-
 
 JMeter\footnote{http://jmeter.apache.org} was used to capture the network metrics of our solution.
 While generating HTTP requests, it reports on specific performances metrics. Each experiment consisted of 10 agents continuously downloading target resources on the HTTP file server, 1000 times.
@@ -98,8 +88,16 @@ Streamed video need good bitrate to avoid re-buffering and improve QoE. That is 
 
 The regional PoP being located near the End-User, its latency is reduced wrt the CP network (backed by CDN), hence a possible higher throughput for HTTP traffic like video streaming.
 For our simulation, we included two types of patterns. The first one is composed of video requests emitted regularly by the clients, which generate a cruising phase traffic. The second consists of traffic at \textit{25s} which is characterized by a greater request arrival rate as well as a more concentrated distribution of videos. Consumption peaks usually occur when a viral video is posted, most of the time on the landing page of the Content Provider. Being able to cache this kind of video and to serve it as close as possible to the users is a key indicator of success for the vNF.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{fig/CP+POP_evaluation.pdf}
+  \end{center}
+  \caption{ Evaluation of the benefits of the SvNF+vNF system
+    \label{fig:cppopeval}
+  }
+\end{figure}	
 
-~Figure\ref{fig:cppopeval} depicts two scenarios. In (A), we only rely on CP network to deliver the media while in (B) a single regional PoP is added to the solution. 
+Figure~\ref{fig:cppopeval} depicts two scenarios. In (A), we only rely on CP network to deliver the media while in (B) a single regional PoP is added to the solution. 
 Note that global bandwidth remains the same, as we took some bandwidth from the CP to allocate it to the regional PoP.
 This is also essential for the CP for comparing at the end the solutions in terms of bandwidth cost.
 
@@ -108,6 +106,7 @@ We can see that the cruising phase does not generate any SLA violation and the C
 Having a regional PoP with lower network latency to serve highly redundant requests, benefits to both the user and the content provider. As the former sees an increase in QoE, the latter reduces cost by avoiding the over provisioning of network capabilities. It's important however, to reserve regional PoP bandwidth to serve only highly popular videos, so as to maximize its benefits, while keeping the mean latency low between clients and regional PoPs by spreading PoPs along the territory.
 
 \subsection{Performance study of provisioning decisions} \label{provisionningdecisions}
+
 
 \begin{figure}
 	
