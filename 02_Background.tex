@@ -20,8 +20,8 @@ The solution is considered stable, tested and allows reusing well-known applicat
 After Linksys (a router vendor who published its GNU/Linux based firmware designed for its WRT54G product line in 2003), a lot of efforts have been made to maintain and improve embedded GNU/Linux firmware distribution over a wide variety of platforms.
 
 A notable example is the OpenWrt\footnote{https://openwrt.org/} project which has been partly sponsored among others by Comcast, through the Open Home Gateway Forum.
-It has helped researchers to add new features to commodity routers by replacing the firmware with a real GNU/Linux OS along with a file system and a package management tool.
-In addition of being able to deploy new packaged programs, developers can also use OpenWrt to write their own applications and deploy them in production.
+%It has helped researchers to add new features to commodity routers by replacing the firmware with a real GNU/Linux OS along with a file system and a package management tool.
+%In addition of being able to deploy new packaged programs, developers can also use OpenWrt to write their own applications and deploy them in production.
 
 
 Modularity can be achieved within the GNU/Linux platform.
@@ -35,7 +35,7 @@ Due to this, alternative execution environments such as OSGi are promoted.
    
 OSGi is a specification that describes a modular system and a service platform for Java.
 It was originally designed to enable the deployment of services over wide area networks to local networks and devices (\cite{marples_open_2001}).
-The main advantages of OSGI are platform and application independency, multiple services support and collaboration by letting services discover each other and adapting their behaviour accordingly.
+The main advantages of OSGI are platform and application independency, multiple services support and collaboration by letting services discover each other and adapting their behavior accordingly.
 
 The Home Gateway Initiative (HGI)\footnote{http://www.homegatewayinitiative.org} publishes Requirements  proposing an architecture for Modular HG \cite{_requirements_2011}, \cite{_hg_2014}.
 It explicitly indicates OSGi as the solution of choice to deploy additional modules in their HGI Open Platform 2.0.
@@ -44,20 +44,20 @@ For HGI, the goal for OSGi is to allow the installation, update, removal, start 
 
 \subsubsection{Alternative execution environments}
 
-A new trend in CPE design has emerged conjointly with the availability of alternative opensource OSes like Android\footnote{among others Bbox Miami, Freebox mini 4K are built with Android TV OS}.
+A new trend in CPE design has emerged conjointly with the availability of alternative open source OSes like Android\footnote{among others Bbox Miami, Free box mini 4K are built with Android TV OS}.
 Rich of hundred thousands third party applications, they bring directly to the End-User the possibility of installing additional software to enrich the user experience.
-Another advantage for this model is that End-Users are already familiar with the concept of application store, and their willingness to pay extra for services and applications has risen with the smartphone era.
-For the Internet Service Providers, the advantage is the great professional support available for those OSes, easying maintenance and support and also the possibility to agree on revenue sharing\footnote{http://www.bloomberg.com/news/articles/2014-10-02/orange-agrees-to-distribute-netflix-video-service-in-france} with over the top (OTT) content providers like Netflix or Canal+.
+Another advantage for this model is that End-Users are already familiar with the concept of application store, and their willingness to pay extra for services and applications has risen with the smart phone era.
+For the Internet Service Providers, the advantage is the great professional support available for those OSes, easing maintenance and support and also the possibility to agree on revenue sharing\footnote{http://www.bloomberg.com/news/articles/2014-10-02/orange-agrees-to-distribute-netflix-video-service-in-france} with over the top (OTT) content providers like Netflix or Canal+.
 
-Even if Android comes from the smartphone world, the platform has a good support for Service Oriented Programming, with native concepts of the service abstraction, sandboxing and built-in security. Multi-vendor services and applications can be installed and their lifecycle supports the most common traits of a service bundle with the help of the built-in Task Scheduler.
+Even if Android comes from the smart phone world, the platform has a good support for Service Oriented Programming, with native concepts of the service abstraction, sand boxing and built-in security. Multi-vendor services and applications can be installed and their life cycle supports the most common traits of a service bundle with the help of the built-in Task Scheduler.
 
 \subsection{Home Gateway Virtualization}
-Given the heteogeneity of the last kilometer network and the multiplicity of network devices, proposing new architecture is a challenging task.
-However, given the preceived benefits of the approach, the idea of virtualizing Home Gateways is not new and designing  its architecture involves a great understanding of Service Providers access networks specificities, technical choices, legacy and limitations.
+Given the heterogeneity of the last kilometer network and the multiplicity of network devices, proposing new architecture is a challenging task.
+However, given the perceived benefits of the approach, the idea of virtualizing Home Gateways is not new and designing  its architecture involves a great understanding of Service Providers access networks specificities, technical choices, legacy and limitations.
 
 First of all, the study from Eurescom \cite{daniel_abgrall_virtual_????} starts by describing existing standards from the Broadband Forum and assuming deployment scenarios for a vHG.
 By replacing existing HG with a managed bridge, Service Providers would replace the current HG with a simplified layer-2 device having the ability to manage VoIP and WiFi interfaces.
-In the study, Software Defined Network (SDN) is also proposed to tackle scalability issues arising from integrating a significant number of vHG instances on network equipments.
+In the study, Software Defined Network (SDN) \cite{kim_improving_2013} is also proposed to tackle scalability issues arising from integrating a significant number of vHG instances on network equipments.
 By proposing a software architecture related to the HGI proposal to deploy network function in a modularized fashion, they suggest the principle of NFV architecture.
 Finally,  it concludes that current Broadband Forum standards allow support of vHG, event if the architecture is not yet completely understood.
 
@@ -74,7 +74,7 @@ Our paper builds up on ETSI vision and try to address the technological aspects 
 
 
 Another interesting approach came from \cite{lee_netserv:_2011} where the authors  propose to revive Active Networking by designing a framework allowing SP or Content Providers (CP) to deploy new functionalities on the network in a secure and dynamic fashion.
-NetServ Controller exposes packets to OSGi bundles for packet processing. Even if the paper presents a service virtualization concept that address some of the limitations in the current internet, its promotes a clean slate  architecture that could be difficult to integrate in existing platforms.
+NetServ Controller exposes packets to OSGi bundles for packet processing. Even if the paper presents a service virtualization concept that address some of the limitations in the current Internet, its promotes a clean slate  architecture that could be difficult to integrate in existing platforms.
 
 \begin{figure}
   \begin{center}
@@ -84,8 +84,8 @@ NetServ Controller exposes packets to OSGi bundles for packet processing. Even i
     \label{fig:trends}
   }
 \end{figure}	
-As a summary of the abovementioned related works and their position in the landscape of Home Gateway Virtualization, Figure~\ref{fig:trends} depicts the overall context into which our proposal operates.
-Building up on the latter approaches, this paper investigates an alternate, yet standard-based, migration path to a fully virtualized home environment, centred around a modular HG (using HGI open platform 2.0 with OSGi) cooperating with a carrier grade cloud computing architecture (NFV-ready and ETSI compliant), all this possible thanks to the introduction of a novel Surrogate VNF approach.
+As a summary of the above-mentioned related works and their position in the landscape of Home Gateway Virtualization, Figure~\ref{fig:trends} depicts the overall context into which our proposal operates.
+Building up on the latter approaches, this paper investigates an alternate, yet standard-based, migration path to a fully virtualized home environment, centered around a modular HG (using HGI open platform 2.0 with OSGi) cooperating with a carrier grade cloud computing architecture (NFV-ready and ETSI compliant), all this possible thanks to the introduction of a novel Surrogate VNF approach.
 
 
 
