@@ -20,10 +20,10 @@ Settings 4 & client connected to SvNF proxy hosted on the gateway with 10,000 ru
 	
 \end{table*}
 
-Section~\ref{sec:migrating} described the role of SvNF deployed on the HG and the server-side infrastructure composed of various vNFs: Streamers vNFs deployed in regional POPs, Caching and Transcoding Orchestrator and Transcoding vNFs deployed in regular data-centers. 
+Section~\ref{sec:migrating} described the role of SvNF deployed on the HG and the server-side infrastructure composed of various vNFs: Streamers vNFs deployed in regional PoPs, Caching and Transcoding Orchestrator and Transcoding vNFs deployed in regular data-centers. 
 
-As our proposal aims at showing how software deployed in a modular HG can play a role in a vNF architecture, our first focus for the evaluation is devoted to assessing HG side performance, memory footprint and environment execution.
-Next, in order to evaluate the benefits of the overall SvNF+vNF system in abovecited use case, we made extensive simulations with hypothesis conforming exactly to the french network of Service Provider "Orange".
+As our proposal aims at showing how software deployed in a modular HG can play a role in a vNF architecture, our first focus for the evaluation is devoted to assessing HG side performance, CPU and memory footprint.
+Next, to evaluate the benefits of the overall SvNF+vNF system in above-cited use case, we made extensive simulations with hypothesis conforming exactly to the french network of Service Provider "Orange".
 
 \subsection{SvNF Evaluation }\label{Testbed}
 
@@ -51,12 +51,8 @@ The APU/1C gateway is built upon a low-power AMD Bobcat x86 microarchitecture an
 
 
 
-
-
-
-
 JMeter\footnote{http://jmeter.apache.org} was used to capture the network metrics of our solution.
-It allowed us to create agents and make them perform standard HTTP queries, as well as report on specific performances metrics. Each experiment consisted of 10 agents continuously downloading target resources on the HTTP file server, 10000 times.
+While generating HTTP requests, it reports on specific performances metrics. Each experiment consisted of 10 agents continuously downloading target resources on the HTTP file server, 1000 times.
 
 We considered two different validation use-case: Web Traffic and File Transfer. First, the agents had to download a 192 MB video file, then a single HTML page which linked to 171 static resources composed of Javascript files, CSS and images of average size 16 KB.
 
@@ -77,8 +73,8 @@ We conclude that even with the extra CPU involved, our solution does not signifi
 		\hline
 			\textbf{Settings} & \textbf{Scenario A} & \textbf{Scenario B}\\\hline
 			CP Bandwidth &2 Gbps&1 Gbps\\\hline
-			Regional POP Bandwidth &0 Gbps&1 Gbps\\\hline
-			Regional POP latency& \multicolumn{2}{l|}{25ms} \\\hline
+			Regional PoP Bandwidth &0 Gbps&1 Gbps\\\hline
+			Regional PoP latency& \multicolumn{2}{l|}{25ms} \\\hline
 			CP latency& \multicolumn{2}{l|}{50ms} \\\hline
 			Video Distribution& \multicolumn{2}{l|}{Normal} \\\hline
 			Video Size&\multicolumn{2}{l|}{Pareto with average video size=10Mb}\\\hline
@@ -95,21 +91,21 @@ We conclude that even with the extra CPU involved, our solution does not signifi
 We simulated the network deployment presented in ~Figure \ref{fig:hld}, with the specifications presented in ~Table \ref{simu1}.
 
 The objective is first to assess the feasibility of having a SvNF+vNF approach and second to highlight its benefits. 
-The use case considers the deployment of SvNF in the HG and vNF in the SP's regional POPs, for video delivery.
+The use case considers the deployment of SvNF in the HG and vNF in the SP's regional PoPs, for video delivery.
 Let us thus investigate the potential of such a solution.
 
 Streamed video need good bitrate to avoid re-buffering and improve QoE. That is the reason why we defined an SLA violation as the failure to deliver the proper average bitrate on time to a client. Our goal in this simulation is to reduce the SLA violations over time.
 
-The regional POP being located near the End-User, its latency is reduced wrt the CP network (backed by CDN), hence a possible higher throughput for HTTP traffic like video streaming.
+The regional PoP being located near the End-User, its latency is reduced wrt the CP network (backed by CDN), hence a possible higher throughput for HTTP traffic like video streaming.
 For our simulation, we included two types of patterns. The first one is composed of video requests emitted regularly by the clients, which generate a cruising phase traffic. The second consists of traffic at \textit{25s} which is characterized by a greater request arrival rate as well as a more concentrated distribution of videos. Consumption peaks usually occur when a viral video is posted, most of the time on the landing page of the Content Provider. Being able to cache this kind of video and to serve it as close as possible to the users is a key indicator of success for the vNF.
 
-~Figure\ref{fig:cppopeval} depicts two scenarios. In (A), we only rely on CP network to deliver the media while in (B) a single regional POP is added to the solution. 
-Note that global bandwidth remains the same, as we took some bandwidth from the CP to allocate it to the regional POP.
+~Figure\ref{fig:cppopeval} depicts two scenarios. In (A), we only rely on CP network to deliver the media while in (B) a single regional PoP is added to the solution. 
+Note that global bandwidth remains the same, as we took some bandwidth from the CP to allocate it to the regional PoP.
 This is also essential for the CP for comparing at the end the solutions in terms of bandwidth cost.
 
-We can see that the cruising phase does not generate any SLA violation and the CP alone is able to handle the traffic load. However, when the peak occurs, SLA violations increase dramatically, causing a lot of requests to be dropped. In scenario B, however, the presence of the regional POP as an alternative, low latency data source, mitigate the peak effect and reduces up to 70\% of SLA violations to on the overall simulation period.
+We can see that the cruising phase does not generate any SLA violation and the CP alone is able to handle the traffic load. However, when the peak occurs, SLA violations increase dramatically, causing a lot of requests to be dropped. In scenario B, however, the presence of the regional PoP as an alternative, low latency data source, mitigate the peak effect and reduces up to 70\% of SLA violations to on the overall simulation period.
 
-Having a regional POP with lower network latency to serve highly redundant requests, benefits to both the user and the content provider. As the former sees an increase in QoE, the latter reduces cost by avoiding the over provisioning of network capabilities. It's important however, to reserve regional POP bandwidth to serve only highly popular videos, so as to maximize its benefits, while keeping the mean latency low between clients and regional POPs by spreading POPs along the territory.
+Having a regional PoP with lower network latency to serve highly redundant requests, benefits to both the user and the content provider. As the former sees an increase in QoE, the latter reduces cost by avoiding the over provisioning of network capabilities. It's important however, to reserve regional PoP bandwidth to serve only highly popular videos, so as to maximize its benefits, while keeping the mean latency low between clients and regional PoPs by spreading PoPs along the territory.
 
 \subsection{Performance study of provisioning decisions} \label{provisionningdecisions}
 
@@ -123,13 +119,13 @@ Having a regional POP with lower network latency to serve highly redundant reque
   }
 \end{figure}	
 
-Regional POPs are designed to have great network performances, and need to be distributed through the territory for a reduced price.
+Regional PoPs are designed to have great network performances, and need to be distributed through the territory for a reduced price.
 In order to mitigate the storage cost, the caching controller takes the decision to provision as few videos as possible to fulfill the SLA. Several factor can influence the decision, like the transcoding time, the vNF booting time, hosting costs and so on.
-Taking the decision to provision a video in a specific regional POP means classifying the video as cachable according to some meta data, like the view count in a certain time window.
+Taking the decision to provision a video in a specific regional PoP means classifying the video as cachable according to some meta data, like the view count in a certain time window.
 In \cite{silvestre_boosting_2015}, the authors proposed a model for predicting the popularity of a video, and estimated that view counts accounted for 82\% of the relative importance. 
-We implemented a very simple provisioning policy, based on the number of requests for the same resource received in a 10 minutes rolling window. If the number is above the threshold, the video is cached at the regional POP level and clients can download the video from there.
+We implemented a very simple provisioning policy, based on the number of views for the same resource received in a 10 minutes rolling window. If the number is above the threshold, the video is cached at the regional PoP level and clients can download the video from there.
 
-~Figure \ref{fig:cachingstrateval} shows that for our particular settings, the value that minimize the percentage of SLA violation is 4. This can be explained by the fact that we want to preserve the regional POP for serving only the most popular videos (which will trigger the most SLA violations) and not clutter it with less popular videos that could be easily served by the CP. However, as the propagation of the caching policy takes time, we want to react promptly and not wait for too many popular videos to hit the CP.
+~Figure \ref{fig:cachingstrateval} shows that for our particular settings, the value that minimize the percentage of SLA violation is 4. This can be explained by the fact that we want to preserve the regional PoP for serving only the most popular videos (which will trigger the most SLA violations) and not clutter it with less popular videos that could be easily served by the CP. However, as the propagation of the caching policy takes time, we want to react promptly and not wait for too many popular videos to hit the CP.
 
 In production, this evaluation should be updated regularly by monitoring the overall traffic and the network conditions and possibly using other video meta data.
 

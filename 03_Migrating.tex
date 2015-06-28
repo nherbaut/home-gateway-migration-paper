@@ -65,18 +65,18 @@ In the original content distribution model, content is streamed from the content
 Classic deployment scenario involves the use of Content Distribution Network (CDN) to offload the CP main server.
 CDN nodes are often collocated with Internet Exchange Points (IXP) which present the advantage of being located relatively close to the End-User. We introduce an alternative model when caching is done by vNF.
 
-In the  current deployment model for NFV, it is anticipated that datacenters (at various capacities) are deployed in selected places within the Telco operator’s network infrastructure (usually at the edges of the Telco infrastructure footprint) capable of providing IT resource virtualization for the deployment of VNFs. These places are called Network Function Virtualization Infrastructure Point of Presence (NFVI-PoP). These deployments support both network and IT resource virtualization. The trend of using small scale datacenters i.e. micro-datacenters or even smaller, provides the opportunity to make available NFV infrastructures closer to the end-users and for smaller groups, enhancing the network usage efficiency via a regional POP.
+In the  current deployment model for NFV, it is anticipated that datacenters (at various capacities) are deployed in selected places within the Telco operator’s network infrastructure (usually at the edges of the Telco infrastructure footprint) capable of providing IT resource virtualization for the deployment of VNFs. These places are called Network Function Virtualization Infrastructure Point of Presence (NFVI-PoP). These deployments support both network and IT resource virtualization. The trend of using small scale datacenters i.e. micro-datacenters or even smaller, provides the opportunity to make available NFV infrastructures closer to the end-users and for smaller groups, enhancing the network usage efficiency via a regional PoP.
 
-The HG and the regional POP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently. In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional POP to the End-User SvNF, as depicted in Figure~\ref{fig:osgisvnf}.
+The HG and the regional PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently. In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional PoP to the End-User SvNF, as depicted in Figure~\ref{fig:osgisvnf}.
 The idea of operator-owned Distribution Network is described in \cite{spagna_design_2013} and extends traditional CDNs by distributing cache servers close to user.
 
-The Caching and Transcoding Orchestrator  $\CEO$ maintains a list of provisioned regional POPs \(\POP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ a set of Streaming vNFs serves content to End-Users.
+The Caching and Transcoding Orchestrator  $\CEO$ maintains a list of provisioned regional PoPs \(\PoP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ a set of Streaming vNFs serves content to End-Users.
 
 The $\CEO$ also manages Home Gateways configuration. It pushes a set of rules \(R_{u}=\{r^{u}_{1},r^{u}_{2},...,r^{u}_{n}\}\) on the $\SVNF_{u}$. 
 Those rules are used to filter requests and responses crossing $\SVNF_{u}$ in order to notify the $\CEO$ that a video has been requested.
-It also pushes a list of cached resources available to $\SVNF_{u}$ through the regional POPS $C_{u}=\{c^{i,u}_{j} \}$ where $j$ is the identifier of the resource and $i$ the identifier of the regional POP $p_{i}$ from which it can be retrieved. In our use case, resources consist of video files hosted on a Video on Demand Server, and streamed over HTTP.
+It also pushes a list of cached resources available to $\SVNF_{u}$ through the regional PoPS $C_{u}=\{c^{i,u}_{j} \}$ where $j$ is the identifier of the resource and $i$ the identifier of the regional PoP $p_{i}$ from which it can be retrieved. In our use case, resources consist of video files hosted on a Video on Demand Server, and streamed over HTTP.
 
-The SvNF module deployed on the HG works as a HTTP proxy.
+The SvNF module deployed on the HG works is a dynamically configurable HTTP proxy.
 When it receives a request from a client or a response from a server, it analyses it using the set of rules \(R_{u}\) and the set of cached resource $C_{u}$ deployed on the HG.
 Depending on the result three possible scenarios can occur:
 
@@ -124,11 +124,11 @@ This is the common case, as it is performed today. The SvNF deployed on the HG d
 In this case, the SvNF creates an overhead on the gateway without bringing additional value to the End-User.
 This overhead is evaluated in ~Section \ref{Testbed} in order to know if it would penalize the user experience (and in which extent).
 
-Before considering Scenario 2 and 3, where the SvNF+vNF couple is effectively used, we need to take a step back and describe the business aspects involved. At this point, we consider that the Content Provider contacted with the Service Provider to let its video content delivery being handled. On top of simply caching videos in regional POPs, vNFs have different techniques available to optimize End-User QoS, like reducing video bitrate, upgrading the video compression standard, using HTTP Adaptive Streaming and so on.
+Before considering Scenario 2 and 3, where the SvNF+vNF couple is effectively used, we need to take a step back and describe the business aspects involved. At this point, we consider that the Content Provider contacted with the Service Provider to let its video content delivery being handled. On top of simply caching videos in regional PoPs, vNFs have different techniques available to optimize End-User QoS, like reducing video bitrate, upgrading the video compression standard, using HTTP Adaptive Streaming and so on.
 
 \subsubsection*{Scenario 2: Cache hit scenario}
 
-In this scenario, some resources have been retrieved from \(\mathit{CP}_{\mathit{network}}\), transcoded and provisioned in a regional POP $p_{i}$ available to $\SVNF_{u}$.
+In this scenario, some resources have been retrieved from \(\mathit{CP}_{\mathit{network}}\), transcoded and provisioned in a regional PoP $p_{i}$ available to $\SVNF_{u}$.
 
 \begin{algorithmic}[1]
 	\STATE User $u$ requests a resource
@@ -141,10 +141,10 @@ In this scenario, some resources have been retrieved from \(\mathit{CP}_{\mathit
 \end{algorithmic}
 
 
-In this scenario, the content has been processed by the system and is made available in regional POPs which are part of the NVF infrastructure handling storage and content delivery.
+In this scenario, the content has been processed by the system and is made available in regional PoPs which are part of the NVF infrastructure handling storage and content delivery.
 They are managed by SP and can be collocated with existing operator-managed CDN.
-vNFs are deployed in regional POPs and provisioned close to the user, limiting the number of hops with respect to the original Content Provider Network.
-As the network becomes capable of handling both delivery and transcoding, required bandwidth and storage are reduced. The orchestrator uses just in time transcoding to generate a specific video quality needed at a specific regional POP without preliminary work and storage.
+vNFs are deployed in regional PoPs and provisioned close to the user, limiting the number of hops with respect to the original Content Provider Network.
+As the network becomes capable of handling both delivery and transcoding, required bandwidth and storage are reduced. The orchestrator uses just in time transcoding to generate a specific video quality needed at a specific regional PoP without preliminary work and storage.
 We simulated this scenario and detailed the results in ~Section\ref{videodelivery}.
 
 \subsubsection*{Scenario 3: Cache miss scenario}
@@ -173,9 +173,9 @@ In this scenario, the resource targeted by the user matches the Rules, but it is
 \end{algorithmic}
 
 Here, $\CEO$ is informed that a cache request has not been fulfilled. According to its provisioning algorithm, it can decide to deploy the resource corresponding to $\mathit{Req}$ in a $p_{i}$ either by transcoding the original file from \(\mathit{CP}_{\mathit{network}}\) to a $p_{i}$ or by re-provisioning $c^{k,u}_{j}$ to $p_{i}$.
-If a modification has been operated on the POPS, $\CEO$ will update the Home Gateway cache tables.
+If a modification has been operated on the PoPS, $\CEO$ will update the Home Gateway cache tables.
 
-The Caching and Transcoding Orchestrator takes the decision to perform caching and transcoding on the content based on several criteria ranging from Context and User Intelligence (which has been proven in \cite{wang_cpcdn:_2015} to improve the performance of content delivery), to business negotiation between CP and SP.
+The Caching and Transcoding Orchestrator takes the decision to perform caching and transcoding on the content based on several criteria ranging from Context and User Intelligence \cite{wang_cpcdn:_2015}, to business negotiation between CP and SP.
 However, this decision process is not in the scope of this paper and will be studied in further work. 
 We simulated this third scenario and detailed the results in ~Section\ref{provisionningdecisions}.
 
@@ -193,7 +193,7 @@ We simulated this third scenario and detailed the results in ~Section\ref{provis
 %Collective intelligence data is collected thanks to caching requests emitted by vHG.
 %The system gathers data which reflect video consumption patterns on a per-user basis, like user average bandwidth, hourly consumption patterns, and consumption habits.
 %Let's imagine a particular user watch HBO's Game of Thrones every Sunday evening on his Ipad which support Apple's HTTP Live Streaming (HLS) on a T1 connection.
-%If this pattern is widespread amongst users, the Caching and Transcoding Orchestrator can assign a higher priority on the transcoding of the HD HLS version of the popular TV show and assuring the correct provisionning on selected regional POPs.
+%If this pattern is widespread amongst users, the Caching and Transcoding Orchestrator can assign a higher priority on the transcoding of the HD HLS version of the popular TV show and assuring the correct provisionning on selected regional PoPs.
 %
 %This approach allows CP to broadcast its content in cooperation with Service Providers NVF network with limited technical interaction.
 %Indeed, expressing contractual SLA target is enough for the CP to deploy its content, as the Service Providers' vNF becomes responsible for determining (1) which content to cache (2) which enhancements to bring to the content and (3) where to cache the content.
