@@ -1,6 +1,6 @@
 Since the introduction of high speed Internet technologies such as xDSL and FTTx, End-Users' demands for Internet services grow at an exponential rate.
 According to Akamai, the most popular Content Delivery Network (CDN) provider, the average bandwidth has continued to globally increase by 65\% in the second quarter of 2014 \cite{_akamais_2014} compared to 2013. 
-Moreover, it is expected that IP video traffic will reach almost 80\% of all consumer Internet traffic in 2018 \footnote{CISCO forecast white paper http://bit.ly/LVhmuL }. To cope with this drastic evolution, new concepts emerge, such as Network Function Virtualization (NFV), and they appear to be very promising especially for the delivery aspects of video content.
+Moreover, it is expected that IP video traffic will reach almost 80\% of all consumer Internet traffic in 2018 \footnote{CISCO forecast white paper http://bit.ly/LVhmuL }. To cope with this drastic evolution, new concepts emerge, such as Network Function Virtualization (NFV), and they appear to be very promising especially for video content delivery.
 
 %The Home Gateways (HG), for the networking part, and the Set-Top-Boxes (STB), for the rendering part, constitute two of the major equipments in charge of processing media content and delivering it to a number of devices such as screens, smartphones, tablets, computers, mobile devices and security appliances.
 %HG and STB are placed on the last portion of the Service Provider's network under the conjoined responsibility of the End-User and the SP.
@@ -13,23 +13,23 @@ Moreover, it is expected that IP video traffic will reach almost 80\% of all con
 %For instance, most STBs cannot decode the new video format standard  High Efficiency Video Coding (HEVC). 
 %The challenge for SP is threefold: they must find a way to tackle with disruptive changes brought by End-User new expectations (like adopting 4K or 8K TV) and roll out new services to find new revenue streams while lowering expenses induced by replacing their network hardware devices.
 
-The Home Gateways (HG) and the Set-Top-Boxes (STB) are the last portion of Service Provider network in charge of deliver media content to End-Users. 
+The Home Gateways (HG) and the Set-Top-Boxes (STB) are the last portion of Service Provider network in charge of delivering, among other, media contents to End-Users. 
 They represent substantial operational expense (OPEX) for SP as frequent software update and support are needed. 
-As they are built around specialized hardware, it is not uncommon to need hardware upgrade when a new technology is rolled out (for example the new video format standard  High Efficiency Video Coding HEVC), resulting in Capital Expenditure (CAPEX).
+As they are built around specialized hardware, it is not uncommon to need hardware upgrade when a new technology is rolled out resulting in increased Capital Expenditure (CAPEX). For example the new video format standard  High Efficiency Video Coding often requires the current STB to be replaced.
 
 
-Cloud Computing promotes the deployment of IT services on commodity servers has not reached the telco world so far, due to its lack of standardization and doubts regarding its ability to deliver telecom services. 
+Cloud Computing promotes the deployment of IT services on commodity servers. It has not reached the telco world so far, due to its lack of standardization and doubts regarding its ability to deliver telecom services. 
 Drawing on this observation, the European Telecommunications Standards Institute (ETSI) issued a seminal white paper \cite{_network_2012}, introducing the notion of Network Function Virtualization (NFV) and launched an Industry Specification Group for NFV, producing white papers and design documents.
-The whole NFV concept aims at creating a reference architecture and a standardized approach to achieve carrier grade virtualization of existing network functions currently performed by hardware middle boxes, on commodity servers.
-Network equipment vitalization touches a broad range of devices, including HG and STB as ETSI mentions in the “Virtualization of the Home Environment” section of \cite{_network_2013}. 
+The whole NFV concept aims at creating a reference architecture and a standardized approach to achieve carrier grade virtualization on commodity servers of existing network functions that are currently handled by hardware middle boxes.
+Network equipment virtualization touches a broad range of devices, including HG and STB as ETSI mentions in the “Virtualization of the Home Environment” section of \cite{_network_2013}. 
 
 As interest in NFV grows, several field studies are performed to verify it can be launched to market.
-However, the transition from the current monolithic firmware based CPE to a proper full cloud solution is unlikely to happen immediately. Telefonica, the precursor in this domain mentioned in \cite{enrique_blanco_telefonica_2015} that the first commercial deployments of vCPE will occur during in 2015.
+However, the transition from the current monolithic firmware based Customer Premise Equipment (CPE) to a proper full cloud solution is unlikely to happen immediately. Telefonica, the precursor in this domain mentioned in \cite{enrique_blanco_telefonica_2015} that the first commercial deployments of vCPE will occur during in 2015.
 
-In this paper, we will study the feasibility of a NFV based HG.  To this end, we introduce a novel  approach centred around the concept of Surrogate VNF deployed on the Home Gateway.
+In this paper, we will study the feasibility of a NFV based HG.  To this end, we introduce a novel  approach centred around the concept of Surrogate vNF deployed on the Home Gateway.
 It will serve as a drop-in replacement for an existing function by leveraging the usage of Open Services Gateway initiative (OSGi\footnote{http://www.osgi.org/}) technology promoted by the Home Gateway Initiative.
 The rest of this paper is organized as follows.
-~Section \ref{sec:background}, explores the related work on the current and next generation Home Gateway architectures and reviews existing approaches for virtualizing customer premise equipments in general.
+Section~ \ref{sec:background}, explores the related work on the current and next generation Home Gateway architectures and reviews existing approaches for virtualizing CPE in general.
 Section \ref{sec:migrating} presents the overall concept of our SvNF-based solution. Section \ref{sec:results} is dedicated to its evaluation through experimentations and simulations. Finally, section \ref{sec:conclusion} concludes and outlines further possible work.
 
 
