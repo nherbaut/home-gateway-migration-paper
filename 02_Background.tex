@@ -51,7 +51,7 @@ For the Internet Service Providers, the advantage is the great professional supp
 
 Even if Android comes from the smartphone world, the platform has a good support for Service Oriented Programming, with native concepts of the service abstraction, sandboxing and built-in security. Multi-vendor services and applications can be installed and their lifecycle supports the most common traits of a service bundle with the help of the built-in Task Scheduler.
 
-\subsection{Home Gateway Virtualisation}
+\subsection{Home Gateway Virtualization}
 Given the heteogeneity of the last kilometer network and the multiplicity of network devices, proposing new architecture is a challenging task.
 However, given the preceived benefits of the approach, the idea of virtualizing Home Gateways is not new and designing  its architecture involves a great understanding of Service Providers access networks specificities, technical choices, legacy and limitations.
 
@@ -61,26 +61,26 @@ In the study, Software Defined Network (SDN) is also proposed to tackle scalabil
 By proposing a software architecture related to the HGI proposal to deploy network function in a modularized fashion, they suggest the principle of NFV architecture.
 Finally,  it concludes that current Broadband Forum standards allow support of vHG, event if the architecture is not yet completely understood.
 
-Additionaly, in \cite{da_silva_home_2011} authors qualitatively compare several architectures for HG virtualisation (which in this case is merely layer-2 based home and access network with Plug and Play capabilities), explaining that it could be achieved by centralizing the virtual routing network function (specially NAT) in the Broadband Remote Access server. However this method requires significant changes in the SP access network.
+Additionaly, in \cite{da_silva_home_2011} authors qualitatively compare several architectures for HG virtualization (which in this case is merely layer-2 based home and access network with Plug and Play capabilities), explaining that it could be achieved by centralizing the virtual routing network function (specially NAT) in the Broadband Remote Access server. However this method requires significant changes in the SP access network.
 
 Another work performed by Cruz et al. in \cite{cruz_architecture_2013} demonstrates a proposal built upon two reference frameworks from the Broadband forum (TR-101 and TR-156), which shows vHG being deployed in SP datacenter as embedded GNU/Linux virtual machines managed by the CWMP protocol to simplify management on the SP side. This approach however leaves open the issue of multi-provider services and the integration of software from different stakeholders into the Home Gateway execution environment.
 
-In \cite{_network_2013}, ETSI built out its proposal for using vNF in virtualizing the home environment over Eurescom work, by setting the vHG as a virtualisation target.
+In \cite{_network_2013}, ETSI built out its proposal for using vNF in virtualizing the home environment over Eurescom work, by setting the vHG as a virtualization target.
 The benefits for this architecture include both CAPEX and OPEX reduction as well as improved QoE through remote access and multi-screen support.
 The introduction of new services without dependencies on the CPE capabilities is also outlined.
 In this scenario, the full stack of the HG and STB functionalities are moved to the cloud, leaving only simple Level-2 bridges in the End-User's premises.
 They mention that SP is likely to roll out virtualized services gradually based on available access technology and End User requirements, without specifying the technical way to integrate both worlds.
-Our paper builds up on ETSI vision and try to address the technological aspects of migration to a fully-virtualised Home Gateway.
+Our paper builds up on ETSI vision and try to address the technological aspects of migration to a fully-virtualized Home Gateway.
 
 
 Another interesting approach came from \cite{lee_netserv:_2011} where the authors  propose to revive Active Networking by designing a framework allowing SP or Content Providers (CP) to deploy new functionalities on the network in a secure and dynamic fashion.
-NetServ Controller exposes packets to OSGi bundles for packet processing. Even if the paper presents a service virtualisation concept that address some of the limitations in the current internet, its promotes a clean slate  architecture that could be difficult to integrate in existing platforms.
+NetServ Controller exposes packets to OSGi bundles for packet processing. Even if the paper presents a service virtualization concept that address some of the limitations in the current internet, its promotes a clean slate  architecture that could be difficult to integrate in existing platforms.
 
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.45\textwidth]{fig/vhgtrends.pdf}
   \end{center}
-  \caption{ Major trends for technical aspects of Home Gateway Virtualisation
+  \caption{ Major trends for technical aspects of Home Gateway Virtualization
     \label{fig:trends}
   }
 \end{figure}	
