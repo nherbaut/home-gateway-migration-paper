@@ -1,30 +1,20 @@
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.45\textwidth]{fig/migrationPath.pdf}
-  \end{center}
-  \caption{ Migration path from Modular to Virtual HG.
-    \label{fig:migration}
-  }
-\end{figure}	
 
-\begin{figure}
-	
-	\center
 
-	\includegraphics[width=0.45\textwidth]{fig/osgi.pdf}
-	\caption{ Supporting SvNF operation using standard OSGi life cycle.
-    \label{fig:osgisvnf}
-    }
-
-\end{figure}
+%\begin{figure}
+%	\center
+%	\includegraphics[width=0.30\textwidth]{fig/osgi.pdf}
+%	\caption{ Supporting SvNF operation using standard OSGi life cycle.
+%    \label{fig:osgisvnf}
+%    }
+%\end{figure}
 	   
 
-Given all the advantages brought by the virtualization of the home environment, we should see a dramatic market swap  happening in the coming years.
-Even if field studies are currently conducted\footnote{Telefónica and NEC win innovation award for virtualized home gateway trials: http://tinyurl.com/o8cl3bv}, all of them exclusively focus on emerging markets.
-For more mature markets, SPs balance those advantages with the necessity to dampen their past investments made on their current infrastructures.
-Additionally, there is also a technological risk in building VHG infrastructure at scale, especially in a deflationary market where investments need to take opportunistic paths. 
+%Given all the advantages brought by the virtualization of the home environment, we should see a dramatic market swap  happening in the coming years.
+%Even if field studies are currently conducted\footnote{Telefónica and NEC win innovation award for virtualized home gateway trials: http://tinyurl.com/o8cl3bv}, all of them exclusively focus on emerging markets.
+%For more mature markets, SPs balance those advantages with the necessity to dampen their past investments made on their current infrastructures.
+%Additionally, there is also a technological risk in building VHG infrastructure at scale, especially in a deflationary market where investments need to take opportunistic paths. 
 
-Focusing on the introduction of \textit{new services} made possible by virtualization techniques has the advantage of not being too disturbing for the current infrastructure, while paving the way for a future migration to a full fledge virtual environment. 
+%Focusing on the introduction of \textit{new services} made possible by virtualization techniques has the advantage of not being too disturbing for the current infrastructure, while paving the way for a future migration to a full fledge virtual environment. 
 Our objective is to demonstrate that in the current infrastructure, we can integrate NFV within the Home Gateways to deploy new services easily and to this end, we introduce the Surrogate vNF (SvNF) approach.
 
 \subsection{The Surrogate vNF Concept}
@@ -32,12 +22,12 @@ Our objective is to demonstrate that in the current infrastructure, we can integ
 We propose an alternative migration path where vNFs collaborate with modular gateways in the short/mid-term, and thus technically preparing the long-term migration towards a fully NFV-based HG, as shown in Figure~\ref{fig:migration}.
 A SvNF is an OSGi bundle (or a \textit{Service Module} in HGI terminology) that acts like a regular module from the HG standpoint, except that it delegates any significant operation to a vNF operating in a standard ETSI compliant Virtual Network Function architecture. 
 Given the limited capabilities of Home Gateways, the features they can handle are control-plane ones and very basic data-plane ones.
-For example, in a Parental Control use-case, the SvNF could be installed on the gateway and redirect traffic to a virtual Security Appliance, deployed in the Service Provider Cloud, configured to operate a complex security scheme \cite{basile_novel_2015}. It also could enforce the first line of defense according to rules deployed by the vNF on the SvNF.
+For example, in a Parental Control use-case, the SvNF could be installed on the gateway and redirect traffic to a virtual Security Appliance, deployed as a vNF configured to operate a complex security scheme \cite{basile_novel_2015}. It also could enforce the first line of defense according to rules deployed by the vNF on the SvNF.
 
 The key role played by the SvNF+vNF couple in the migration path is that the vNF part is used on both the OSGi Modular Gateway Scenario and on the L2 bridge scenario, allowing gradual migration of SP current customers' equipment while securing investments of the vNF. 
 
-SvNF modules leverage the existing OSGi life cycle and resource provisioning mechanisms, while at the same time extending them also to network resources. SvNF modules are aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment provided that they are supported by the underlying network.
-As shown in ~Figure \ref{fig:osgisvnf}, we extend the semantics of OSGi life cycle by adding the capability to depend on network resources as well. SvNF modules register themselves on the runtime environment only if any suitable vNF is available to them. The HG falls back to legacy mode and keeps using the native implementation of the service if the virtualized one is not available.
+%SvNF modules leverage the existing OSGi life cycle and resource provisioning mechanisms, while at the same time extending them also to network resources. SvNF modules are aware of SP access network capabilities to support vNFs, so they can be registered in the HG OSGi execution environment provided that they are supported by the underlying network.
+%As shown in ~Figure \ref{fig:osgisvnf}, we extend the semantics of OSGi life cycle by adding the capability to depend on network resources as well. SvNF modules register themselves on the runtime environment only if any suitable vNF is available to them. The HG falls back to legacy mode and keeps using the native implementation of the service if the virtualized one is not available.
 
 Using SvNF, SPs are able to push new services to every customers in an hybrid mode where some customers go 100\% virtualized (where it makes sense), while the others still run their legacy home gateways
  
@@ -67,7 +57,8 @@ CDN nodes are often collocated with Internet Exchange Points (IXP) which present
 
 In the  current deployment model for NFV, it is anticipated that datacenters (at various capacities) are deployed in selected places within the Telco operator’s network infrastructure (usually at the edges of the Telco infrastructure footprint) capable of providing IT resource virtualization for the deployment of VNFs. These places are called Network Function Virtualization Infrastructure Point of Presence (NFVI-PoP). These deployments support both network and IT resource virtualization. The trend of using small scale datacenters i.e. micro-datacenters or even smaller, provides the opportunity to make available NFV infrastructures closer to the end-users and for smaller groups, enhancing the network usage efficiency via a regional PoP.
 
-The HG and the regional PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently. In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional PoP to the End-User SvNF, as depicted in Figure~\ref{fig:osgisvnf}.
+The HG and the regional PoP both belong to the SP and the SvNF+vNF couple hence created is deployed in those two equipments owned by the same entity. This way, they can co-work together efficiently.
+In this "enhanced" content distribution model, content is streamed from a streaming vNF deployed in the regional PoP to the End-User SvNF.%, as depicted in Figure~\ref{fig:osgisvnf}.
 The idea of operator-owned Distribution Network is described in \cite{spagna_design_2013} and extends traditional CDNs by distributing cache servers close to user.
 
 The Caching and Transcoding Orchestrator  $\CEO$ maintains a list of provisioned regional PoPs \(\PoP=\{p_{i}\}\) that can handle cache requests. On each $p_{i}$ a set of Streaming vNFs serves content to End-Users.

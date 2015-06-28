@@ -1,6 +1,6 @@
 %Even if historically customers still think they are connected to the Internet using a simple modem, the truth is that broadband connection is delivered by a full-fledged HG, integrating the functions of a modem, network address translation (NAT) router, Ethernet switch, WiFi access point, DHCP server, firewall, among others.
  
-No standard technical specification has been defined for HG. However a set of Functional Requirements is maintained by the Broadband Forum in TR-124 \cite{broadband_forum_functional_2014}.
+%No standard technical specification has been defined for HG. However a set of Functional Requirements is maintained by the Broadband Forum in TR-124 \cite{broadband_forum_functional_2014}.
 The following section will present the most common architectures for HGs.
 A special interest will be shown for execution environments, which are meant to achieve modularity through the Service Oriented Programming (SOP) paradigm \cite{bieber2001introduction}.
 
@@ -53,17 +53,16 @@ Even if Android comes from the smart phone world, the platform has a good suppor
 Given the heterogeneity of the last kilometer network and the multiplicity of network devices, proposing new architecture is a challenging task.
 However, given the perceived benefits of the approach, the idea of virtualizing Home Gateways is not new and designing  its architecture involves a great understanding of Service Providers access networks specificities, technical choices, legacy and limitations.
 
-First of all, the study from Eurescom \cite{daniel_abgrall_virtual_????} starts by describing existing standards from the Broadband Forum and assuming deployment scenarios for a vHG.
-By replacing existing HG with a managed bridge, Service Providers would replace the current HG with a simplified layer-2 device having the ability to manage VoIP and WiFi interfaces.
+First of all, the study from Eurescom \cite{daniel_abgrall_virtual_????} starts by describing existing standards from the Broadband Forum \cite{broadband_forum_functional_2014} and promotes the replacement of existing HG  with a simplified layer-2 device having the ability to manage VoIP and WiFi interfaces.
 In the study, Software Defined Network (SDN) \cite{kim_improving_2013} is also proposed to tackle scalability issues arising from integrating a significant number of vHG instances on network equipments.
-By proposing a software architecture related to the HGI proposal to deploy network function in a modularized fashion, they suggest the principle of NFV architecture.
-Finally,  it concludes that current Broadband Forum standards allow support of vHG, event if the architecture is not yet completely understood.
+%y proposing a software architecture related to the HGI proposal to deploy network function in a modularized fashion, they suggest the principle of NFV architecture.
+Finally,  it concludes that current Broadband Forum standards allow support of vHG, event if an architecture is still to be designed.
 
-Additionally, in \cite{da_silva_home_2011} authors qualitatively compare several architectures for HG virtualization (which in this case is merely layer-2 based home and access network with Plug and Play capabilities), explaining that it could be achieved by centralizing the virtual routing network function (specially NAT) in the Broadband Remote Access server. However this method requires significant changes in the SP access network.
+Additionaly, in \cite{da_silva_home_2011} authors qualitatively compare several architectures for HG virtualization , explaining that it could be achieved by centralizing the virtual routing network function (specially NAT) in the Broadband Remote Access server. However this method requires significant changes in the SP access network.
 
-Another work performed by Cruz et al. in \cite{cruz_architecture_2013} demonstrates a proposal built upon two reference frameworks from the Broadband forum (TR-101 and TR-156), which shows vHG being deployed in SP datacenter as embedded GNU/Linux virtual machines managed by the CWMP protocol to simplify management on the SP side. This approach however leaves open the issue of multi-provider services and the integration of software from different stakeholders into the Home Gateway execution environment.
+Another work performed by Cruz et al. in \cite{cruz_architecture_2013} demonstrates a proposal using reference frameworks from the Broadband forum, that shows vHG being deployed in SP data centers as embedded GNU/Linux virtual machines managed allowing simplified management on the SP side. This approach however leaves open the issue of multi-provider services and the integration of software from different stakeholders into the Home Gateway execution environment.
 
-In \cite{_network_2013}, ETSI built out its proposal for using vNF in virtualizing the home environment over Eurescom work, by setting the vHG as a virtualization target.
+In \cite{_network_2013}, ETSI built out its proposal for using vNF in virtualizing the home environment by setting the vHG as a virtualization target.
 The benefits for this architecture include both CAPEX and OPEX reduction as well as improved QoE through remote access and multi-screen support.
 The introduction of new services without dependencies on the CPE capabilities is also outlined.
 In this scenario, the full stack of the HG and STB functionalities are moved to the cloud, leaving only simple Level-2 bridges in the End-User's premises.
@@ -71,8 +70,8 @@ They mention that SP is likely to roll out virtualized services gradually based 
 Our paper builds up on ETSI vision and try to address the technological aspects of migration to a fully-virtualized Home Gateway.
 
 
-Another interesting approach came from \cite{lee_netserv:_2011} where the authors  propose to revive Active Networking by designing a framework allowing SP or Content Providers (CP) to deploy new functionalities on the network in a secure and dynamic fashion.
-NetServ Controller exposes packets to OSGi bundles for packet processing. Even if the paper presents a service virtualization concept that address some of the limitations in the current Internet, its promotes a clean slate  architecture that could be difficult to integrate in existing platforms.
+%Another interesting approach came from \cite{lee_netserv:_2011} where the authors  propose to revive Active Networking by designing a framework allowing SP or Content Providers (CP) to deploy new functionalities on the network in a secure and dynamic fashion.
+%NetServ Controller exposes packets to OSGi bundles for packet processing. Even if the paper presents a service virtualization concept that address some of the limitations in the current Internet, its promotes a clean slate  architecture that could be difficult to integrate in existing platforms.
 
 \begin{figure}
   \begin{center}
@@ -82,8 +81,16 @@ NetServ Controller exposes packets to OSGi bundles for packet processing. Even i
     \label{fig:trends}
   }
 \end{figure}	
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{fig/migrationPath.pdf}
+  \end{center}
+  \caption{ Migration path from Modular to Virtual HG.
+    \label{fig:migration}
+  }
+\end{figure}	
 As a summary of the above-mentioned related works and their position in the landscape of Home Gateway Virtualization, Figure~\ref{fig:trends} depicts the overall context into which our proposal operates.
-Building up on the latter approaches, this paper investigates an alternate, yet standard-based, migration path to a fully virtualized home environment, centered around a modular HG (using HGI open platform 2.0 with OSGi) cooperating with a carrier grade cloud computing architecture (NFV-ready and ETSI compliant), all this possible thanks to the introduction of a novel Surrogate VNF approach.
+Building up on the latter approaches, this paper investigates an alternate, yet standard-based, migration path to a fully virtualized home environment, centered around a modular HG (using HGI open platform 2.0 with OSGi) cooperating with a carrier grade cloud computing architecture (NFV-ready and ETSI compliant), all this possible thanks to the introduction of a novel Surrogate vNF approach.
 
 
 
