@@ -11,7 +11,7 @@ sep=0.1;
 
  
   
-  start [label = "Deploy SvNF \non the Gateway", shape="oval",  style="filled",fillcolor="black",fontcolor="white"];
+  start [ label="", shape="circle",  style="filled",fillcolor="black",fontcolor="white"];
   installed [shape = "box3d", fillcolor="#f3dbdb", style="filled"];
   uninstalled [shape = "box3d", fillcolor="#f3dbdb", style="filled"];
   starting [shape = "box3d", fillcolor="#f3dbdb", style="filled"];
@@ -28,10 +28,10 @@ sep=0.1;
 		 style="filled";
 		 fillcolor="#FFD1AA";
 		installed -> uninstalled [arrowhead=normal,arrowtail=dot];
-		installed -> resolved [label = "resolve", labeldistance=2;fontsize=10, fontcolor="dimgray",constraint=true,penwidth=2]
+		installed -> resolved [label = "resolve", labeldistance=2;fontsize=10, fontcolor="black",constraint=true,penwidth=2]
 		resolved -> installed  [constraint=true,style=dotted];
 		resolved -> uninstalled [style=dotted];
-		resolved -> starting [label = "start",fontsize=10, fontcolor="dimgray",penwidth=2];
+		resolved -> starting [label = "start",fontsize=10, fontcolor="black",penwidth=2];
 		resolved -> resolved [label = "Waiting for vNF",penwidth=2];
 		label="Provisionning Phase - resolving SvNF dependencies";
 }
@@ -41,7 +41,7 @@ subgraph cluster0{
 		fillcolor="#88CC88";
 		rank="sink";
 		starting -> active [ label = "vNF Available", fontcolor="black", fontsize=14, constraint=true,penwidth=2];
-		active -> stopping [label = "stop",fontsize=10, fontcolor="dimgray",constraint=true,style=dotted];
+		active -> stopping [label = "stop",fontsize=10, fontcolor="black",constraint=true,style=dotted];
 		stopping -> resolved [constraint=true,style=dotted];
 		
 		label="Operation Phase - SvNF+vNF Engaged";
